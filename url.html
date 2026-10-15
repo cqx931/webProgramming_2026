@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Basics</title>
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+    a {
+        color:black;
+    }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>URL Basics</h1>
+    </header>
+
+    <main>
+        <!-- Overview Section -->
+        <section>
+            <h2>What is a URL?</h2>
+            <p>
+                A <strong>URL</strong> (Uniform Resource Locator) is the address you type into your browser to access 
+                a web page or resource. URLs tell the browser where to find files like HTML pages, images, stylesheets, 
+                and scripts.
+            </p>
+            <p>
+                When building websites, you need to link to other pages and resources. Understanding the three types of 
+                URLs—<strong>absolute</strong>, <strong>relative</strong>, and <strong>root-relative</strong>—is crucial 
+                for building maintainable websites.
+            </p>
+
+            <h3>Why Does This Matter?</h3>
+            <ul>
+                <li>Different URL types work differently depending on file location</li>
+                <li>Broken links occur when URLs don't point to the correct location</li>
+                <li>Server configuration affects how URLs resolve</li>
+                <li>Moving files can break relative URLs if you're not careful</li>
+            </ul>
+        </section>
+
+        <!-- Absolute URLs -->
+        <section>
+            <h2>1. Absolute URLs</h2>
+            <p>
+                An <strong>absolute URL</strong> includes the complete address from the root of the web, including the 
+                protocol (http/https) and domain name. It always points to the same location, regardless of where the 
+                current page is.
+            </p>
+
+            <h3>Format:</h3>
+            <div class="code-block">protocol://domain.com/path/to/page.html</div>
+
+            <h3>Examples:</h3>
+            <p>
+            The class website in absolute url: <a href="https://cqx931.github.io/webProgramming/">https://cqx931.github.io/webProgramming/</a></li>
+            </p>
+
+            <h3>When to Use Absolute URLs:</h3>
+            <ul>
+                <li>Linking to external websites</li>
+                <li>When you need a URL that works from any location</li>
+                <li>In navigation menus that need to work on all pages</li>
+            </ul>
+        </section>
+
+        <!-- Relative URLs -->
+        <section>
+            <h2>2. Relative URLs</h2>
+            <p>
+                A <strong>relative URL</strong> describes a path relative to the <em>current file's location</em>. It does 
+                not include the protocol or domain. The browser figures out the complete URL based on where the current page is.
+            </p>
+
+            <h3>Format:</h3>
+            <div class="code-block">path/to/page.html</div>
+
+            <h3>Common Relative URL Patterns:</h3>
+            <table>
+                <tr>
+                    <th>Pattern</th>
+                    <th>Meaning</th>
+                    <th>Example</th>
+                </tr>
+                <tr>
+                    <td><code>index.html</code></td>
+                    <td>File in the same folder</td>
+                    <td>Links to index.html in same directory</td>
+                </tr>
+                <tr>
+                    <td><code>./index.html</code></td>
+                    <td>Current folder (. = current)</td>
+                    <td>Same as above, more explicit</td>
+                </tr>
+                <tr>
+                    <td><code>../index.html</code></td>
+                    <td>One folder up (.. = parent)</td>
+                    <td>Links to parent directory</td>
+                </tr>
+                <tr>
+                    <td><code>../images/devices.jpg</code></td>
+                    <td>Sibling folder</td>
+                    <td>Go one folder up, then into images folder to find devices.jpg in </td>
+                </tr>
+            </table>
+
+            <h3>When to Use Relative URLs:</h3>
+            <ul>
+                <li>Linking between pages on your own website</li>
+                <li>When you want flexibility to move your site to different domains</li>
+                <li>Linking to local images, stylesheets, and scripts</li>
+            </ul>
+
+            <div class="warning">
+                <strong>Important:</strong> Relative URLs can break if you move files around. Always check links after 
+                reorganizing your file structure!
+            </div>
+        </section>
+
+        <!-- Root-Relative URLs -->
+        <section>
+            <h2>3. Root-Relative URLs</h2>
+            <p>
+                A <strong>root-relative URL</strong> (also called "absolute path" in some contexts) starts with a forward 
+                slash <code>/</code>, which represents the root of the website. The browser adds the protocol and domain 
+                automatically. These work from any page on your site.
+            </p>
+
+            <h3>Format:</h3>
+            <div class="code-block">/path/to/page.html</div>
+
+            <h3>How It Works:</h3>
+            <p>
+                If you're on <code>https://example.com/pages/contact.html</code> and use the URL <code>/about.html</code>, 
+                the browser will resolve it as <code>https://example.com/about.html</code> (not in the /pages folder).
+            </p>
+
+            <h3>Root-Relative URL Examples:</h3>
+            <table>
+                <tr>
+                    <th>URL</th>
+                    <th>Resolves To (on example.com)</th>
+                </tr>
+                <tr>
+                    <td><code>/index.html</code></td>
+                    <td>https://example.com/index.html</td>
+                </tr>
+                <tr>
+                    <td><code>/about.html</code></td>
+                    <td>https://example.com/about.html</td>
+                </tr>
+                <tr>
+                    <td><code>/pages/contact.html</code></td>
+                    <td>https://example.com/pages/contact.html</td>
+                </tr>
+                <tr>
+                    <td><code>/images/logo.png</code></td>
+                    <td>https://example.com/images/logo.png</td>
+                </tr>
+            </table>
+
+            <h3>When to Use Root-Relative URLs:</h3>
+            <ul>
+                <li>Main navigation links that should work from every page</li>
+                <li>When you want the simplicity of absolute URLs but site flexibility</li>
+                <li>For site-wide resources like stylesheets and scripts in the root</li>
+                <li>Large sites where relative paths would be complex</li>
+            </ul>
+
+            <h3>GitHub Pages</h3>
+            <div class="example">
+                If your GitHub pages are hosted from a normal repository (not the one dedicated to your user GitHub Pages), your root is not the root of your current repository, but to the general user:
+                <a href="/">Current Root</a>
+
+            </div>
+
+            <div class="warning">
+                <strong>Important:</strong> Root-relative URLs only work for websites served from a web server. 
+                If you open an HTML file directly in your browser (file:// protocol), root-relative URLs won't work. 
+                
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>URL Basics Guide | Web Programming Course 2026 | Week 2</p>
+    </footer>
+</body>
+
+</html>

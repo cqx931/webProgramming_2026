@@ -1,0 +1,103 @@
+body {
+    font-family: 'Avenir', sans-serif;
+    font-size:16px;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    color: #2d2d2d;
+    background: #f5f5f5;
+}
+
+header {
+    background: #222;
+    color: white;
+    padding: 1.1rem 1.2rem;
+    text-align: center;
+}
+
+main {
+    max-width: 900px;
+    margin: 1rem auto;
+    padding: 1rem 1.2rem 2rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,.08);
+}
+section + section {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid grey;
+}
+h2 {
+    color: #333;
+    font-size: 1.3rem;
+    margin-bottom: 0.6rem;
+}
+p {
+    margin: 0.5rem 1rem 0.8rem;
+    max-width: 800px;
+}
+
+a {
+    text-decoration: underline;
+    color:inherit;
+}
+a:hover{
+   text-decoration: none;
+}
+
+pre {
+    background: #eef3fc;
+    padding: 0.9rem;
+    border: 1px solid #d4e1f5;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+    color: #c0392b;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+}
+
+table td, table th {
+    border: 1px solid #c2d4f1;
+    padding: 0.35rem;
+}
+
+form label {
+    display: block;
+    margin: 0.5rem 0 0.2rem;
+}
+
+
+.example {
+    margin: 0.4rem 0 1.2rem;
+}
+.rendered {
+    background: #fefefe;
+    border: 1px dashed #b6c8eb;
+    padding: 0.75rem;
+    border-radius: 4px;
+    margin:1em 0em;
+}
+footer {
+    text-align: center;
+    margin: 2rem auto 1rem;
+    color: #6a7480;
+}
+.exercise {
+    background-color: lightgrey;
+    border-radius: 8px;
+    margin:0 1em;
+    border:0;
+    padding: 0.5em 1em 1.5em 1em; 
+}
+
+.hide {
+    visibility:hidden;
+}
