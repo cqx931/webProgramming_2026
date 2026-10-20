@@ -5,4 +5,5 @@
   "editor.inlineSuggest.enabled": false,
   "emmet.triggerExpansionOnTab": true,
   "emmet.showExpandedAbbreviation": "inMarkupAndStylesheetFilesOnly",
+  "chat.disableAIFeatures":true
 }
