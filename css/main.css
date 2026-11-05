@@ -110,6 +110,11 @@ footer {
     visibility:hidden;
 }
 
+.backnav {
+    text-align: right;
+    margin-top: 30px;
+}
+
 /* ========== Sidebar navigation ========== */
 html {
     scroll-behavior: smooth;
