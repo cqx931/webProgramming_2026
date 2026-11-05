@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Course material for week 2 of Web Programming WiSe 2026">
+    <meta name="keywords" content="CSS, Web Programming">
+    <meta name="author" content="Qianxun Chen">
+    <title>HTML + CSS Basics II </title>
+
+    <link href="../css/main.css" rel="stylesheet" />
+    <!-- Prism.js for syntax highlighting for code tags -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+    <style>
+        /* ========== Color swatches ========== */
+        .swatch {
+            display: inline-block;
+            width: 80px;
+            height: 80px;
+            border-radius: 6px;
+            margin: 0.3rem;
+            vertical-align: middle;
+            padding: 5px;
+        }
+
+        /* ========== Selector demo boxes ========== */
+        .selector-demo {
+            margin: 0.5rem 0;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .selector-demo a {
+            display: block;
+            margin: 0.2rem 0;
+        }
+
+        /* Child / descendant */
+        .child-demo>a {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        .desc-demo a {
+            color: #8e44ad;
+            font-style: italic;
+        }
+
+        /* Sibling */
+        .adjacent-demo h4+p {
+            color: #d35400;
+            font-weight: bold;
+        }
+
+        .general-demo h4~p {
+            color: #27ae60;
+        }
+
+        /* Attribute selectors */
+        [data-type="primary"] {
+            background: #3498db;
+            color: #fff;
+            padding: 0.2rem 0.5rem;
+            border-radius: 3px;
+        }
+
+
+        /* ========== Inheritance ========== */
+        .inherit-demo {
+            font-family: 'Georgia', serif;
+            color: #2c3e50;
+            border: 1px solid #bdc3c7;
+            padding: 0.7rem;
+            border-radius: 4px;
+        }
+
+        .inherit-demo a {
+            padding: 2px 6px;
+        }
+
+        /* ========== Boxes ========== */
+        .box-demo {
+            background: #ecf0f1;
+            padding: 0.5rem;
+            margin: 0.5rem 0;
+        }
+
+        .box-demo div {
+            background: #555;
+            color: #fff;
+            text-align: center;
+        }
+
+        .box-center {
+            width: 200px;
+            margin: 0 auto;
+            background: #e74c3c;
+            color: #fff;
+            text-align: center;
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+
+        .box-overflow {
+            width: 200px;
+            height: 60px;
+            background: #f9e4d4;
+            border: 1px solid #d35400;
+            padding: 0.4rem;
+            border-radius: 4px;
+        }
+
+        .box-shadow-demo {
+            display: inline-block;
+            padding: 0.6rem 1.2rem;
+            margin: 0.3rem;
+            background: #fff;
+            border: 1px solid #ddd;
+        }
+
+        /* ========== Interaction ========== */
+        .interact-btn {
+            display: inline-block;
+            padding: 0.5rem 1.2rem;
+            background: #3498db;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+            user-select: none;
+        }
+
+        .interact-btn:hover {
+            background: #2980b9;
+        }
+
+        .interact-btn:active {
+            background: #1c6ea4;
+        }
+
+        .interact-input:focus {
+            outline: 2px solid #e74c3c;
+            border-color: #e74c3c;
+        }
+
+        #hsl-demo {
+            margin: 0;
+            padding-left: 1rem;
+            color: white;
+        }
+
+        #hsl-demo .swatch {
+            height: 30px;
+            padding: 5px;
+            margin: 0px;
+        }
+
+        hr {
+            margin: 50px 0;
+        }
+    </style>
+
+</head>
+
+<body>
+    <header id="top">
+        <h1>Session 2: Basic HTML + CSS</h1>
+    </header>
+
+    <div class="layout">
+
+        <aside class="sidebar" aria-label="Table of contents">
+            <ul>
+                <li><a href="../index.html">← Back to Home</a></li>
+            </ul>
+            <h3>HTML</h3>
+            <ul>
+                <li><a href="#groups">Groups</a></li>
+                <li><a href="#semantic">Semantic Tags</a></li>
+                <li><a href="#media">Media</a></li>
+                <li><a href="#tables">Tables</a></li>
+                <li><a href="#forms">Forms</a></li>
+                <li><a href="#extra">Extra Markups</a></li>
+            </ul>
+            <h3>CSS</h3>
+            <ul>
+                <li><a href="#color">Color</a></li>
+                <li><a href="#selectors">Selectors</a></li>
+                <li><a href="#cascade">Cascade</a></li>
+                <li><a href="#boxes">Box Model</a></li>
+                <li><a href="#text">Text Styling</a></li>
+                <li><a href="#list-menu">List</a></li>
+                <li><a href="#inheritance">Inheritance</a></li>
+                <li><a href="#exercise">Exercise</a></li>
+            </ul>
+        </aside>
+
+        <main>
+
+            <h2>HTML</h2>
+
+        <section id="groups">
+            <h2>Groups</h2>
+
+            <p>
+                Some elements will always appear to start on a new line in the browser window. These are known as
+                <b>block-level elements</b>. Ex: <code>&lt;h1&gt;</code>, <code>&lt;p&gt;</code> and
+                <code>&lt;ul&gt;</code>.
+                Other elements can appear within a line of text and are called <b>inline elements</b>. Ex:
+                <code>&lt;a&gt;</code>, <code>&lt;span&gt;</code>, and <code>&lt;img&gt;</code>.
+            </p>
+            <p><code>&lt;div&gt;</code> is a block-level container for grouping elements, while
+                <code>&lt;span&gt;</code> is an inline container for styling parts of text. We will use these tags a lot
+                when we learn CSS to style our page, as they allow us to apply styles to specific sections of our
+                content without affecting the overall structure.
+            </p>
+            <pre><code  class="language-html">&lt;div style="background:#f0f0f0; padding:1rem;"&gt;
+    This is a div container with a gray background.
+&lt;/div&gt;
+&lt;div style="background:orange; padding:1rem;"&gt;
+    This is a div container with an orange background.
+&lt;/div&gt;        </code></pre>
+            <div class="rendered">
+                <div style="background:#f0f0f0; padding:1rem;">
+                    This is a div container with a gray background.
+                </div>
+                <div style="background:orange; padding:1rem;">
+                    This is a div container with an orange background.
+                </div>
+            </div>
+            <pre><code  class="language-html">&lt;span style="background-color:blue;color:white;"&gt;This text has a blue background&lt;/span&gt;
+&lt;span style="background-color:green;color:white;"&gt;This text has a green background&lt;/span&gt;</code></pre>
+            <div class="rendered">
+                <span style="background-color:blue;color:white;">This text has a blue background</span>
+                <span style="background-color:green;color:white;">This text has a green background</span>
+            </div>
+        </section>
+
+        <section id="semantic">
+            <h2>Semantic Tags</h2>
+            <p>Semantic tags are HTML elements that clearly define their content's purpose to both the browser and the
+                developers.
+            </p>
+            <p>
+                Instead of <code>&lt;div&gt;</code> or <code>&lt;span&gt;</code> tags one can use
+                <code>&lt;header&gt;</code>,
+                <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;article&gt;</code>,
+                <code>&lt;section&gt;</code>, <code>&lt;aside&gt;</code>, <code>&lt;footer&gt;</code> in HTML5 to define
+                different elements of a page.
+            </p>
+            <pre><code  class="language-html">&lt;header&gt;...&lt;/header&gt;
+&lt;main&gt;...&lt;/main&gt;
+&lt;footer&gt;...&lt;/footer&gt;</code></pre>
+
+            <div class="rendered">
+                <p>Check the source code of this page to see how these tags are being used.</p>
+            </div>
+
+            <p>There are many other tags for specific purposes, such as
+                <code>&lt;strong&gt;</code> for important text, <code>&lt;em&gt;</code> for emphasized text, and
+                <code>&lt;blockquote&gt;</code> for quotes.
+            </p>
+            <pre><code  class="language-html">&lt;strong&gt;Important text&lt;/strong&gt;
+&lt;em&gt;Emphasized text&lt;/em&gt;
+&lt;blockquote&gt;A famous quote&lt;/blockquote&gt;</code></pre>
+            <div class="rendered">
+                <strong>Important text</strong><br>
+                <em>Emphasized text</em><br>
+                <blockquote>A famous quote</blockquote>
+            </div>
+        </section>
+
+        <section id="media">
+            <h2>Media</h2>
+            <p>The <code>&lt;img&gt;</code> tag stands for image.</p>
+            <ul>
+                <li><code>src</code> attribute
+                    specifies the image URL</li>
+                <li><code>title</code> attribute is the text that is displayed with a tooltip on hover</li>
+                <li><code>alt</code> attribute provides alternative text for people who can't see the image</li>
+                <li>You can also set the width and height attributes to control the size of the image.</li>
+            </ul>
+            <pre><code class="language-html">&lt;img width="400" title="web developer meme" src="https://cdn.getshifter.co/8a02b8322c8339db67673735bae4923b9ee1696e/uploads/2024/03/web-development.jpeg" alt="I heard you want to be a web developer, here are a few devices to test your site"&gt;</code></pre>
+            <div class="rendered">
+                <img width="400"
+                    src="https://cdn.getshifter.co/8a02b8322c8339db67673735bae4923b9ee1696e/uploads/2024/03/web-development.jpeg"
+                    title="Web developer meme"
+                    alt="I heard you want to be a web developer, here are a few devices to test your site">
+
+                <p>You can add <code>&lt;audio&gt;</code> and <code>&lt;video&gt;</code> content to your HTML. Add the
+                    <code>controls</code> attribute to show playback controls.
+                </p>
+                <pre><code class="language-html">&lt;audio controls&gt;
+  &lt;source src="../media/sound_effect.mp3" type="audio/mp3"&gt;
+&lt;/audio&gt;</code></pre>
+                <div class="rendered">
+                    <audio controls>
+                        <source src="../media/sound_effect.mp3" type="audio/mp3">
+                    </audio>
+                </div>
+
+                <pre><code class="language-html">&lt;video controls width="400"&gt;
+  &lt;source src="../media/sample.mp4" type="video/mp4"&gt;
+&lt;/video&gt;</code></pre>
+                <div class="rendered">
+                    <video controls width="400">
+                        <source src="../media/sample.mp4" type="video/mp4">
+                    </video>
+                </div>
+        </section>
+
+        <section id="tables">
+            <h2>Tables</h2>
+            <p>
+                Inside a <code>&lt;table&gt;</code>, use <code>&lt;thead&gt;</code> for the header
+                row and <code>&lt;th&gt;</code> for header cells.
+                Use
+                <code>&lt;tbody&gt;</code> for the body rows, <code>&lt;tr&gt;</code> for each table row, and
+                <code>&lt;td&gt;</code> for regular cells. You can customize its appearance with CSS.
+            </p>
+            <pre><code  class="language-html">&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Name&lt;/th&gt;
+      &lt;th&gt;Age&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Alice&lt;/td&gt;
+      &lt;td&gt;20&lt;/td&gt;
+    &lt;/tr&gt;
+     &lt;tr&gt;
+      &lt;td&gt;Bob&lt;/td&gt;
+      &lt;td&gt;21&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+            <div class="rendered">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Age</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Alice</td>
+                            <td>20</td>
+                        </tr>
+                        <tr>
+                            <td>Bob</td>
+                            <td>21</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="forms">
+            <h2>Forms (Inputs and Buttons)</h2>
+            <p>One can use <code>&lt;form&gt;</code> elements for interactive user input. Common fields include
+                <code>&lt;input&gt;</code>, <code>&lt;textarea&gt;</code>, <code>&lt;select&gt;</code>, and
+                <code>&lt;button&gt;</code>. There are different types of input fields, such as text, password, email,
+                and more.
+                Forms can then be submitted to a server or be handled by third-party form handling services. 
+            </p>
+            <pre><code  class="language-html">&lt;form&gt;
+    &lt;label for="name"&gt;Name:&lt;/label&gt;
+    &lt;input type="text" id="name" name="name" placeholder="Your name" required&gt;
+    &lt;br&gt;
+    &lt;label for="msg"&gt;Message:&lt;/label&gt;
+    &lt;textarea id="msg" name="msg" rows="3" required&gt;&lt;/textarea&gt;
+    &lt;br&gt;
+    &lt;label for="topic"&gt;Topic:&lt;/label&gt;
+    &lt;select name="topic" id="topic"&gt;
+        &lt;option value="inquiry"&gt;Inquiry&lt;/option&gt;
+        &lt;option value="complain"&gt;Complain&lt;/option&gt;
+        &lt;option value="comment"&gt;Comment&lt;/option&gt;
+    &lt;/select&gt;
+    &lt;br&gt;
+    &lt;input type="radio" name="role" id="student" value="student"&gt;
+    &lt;label for="student"&gt;student&lt;/label&gt;
+    &lt;input type="radio" name="role" id="teacher" value="teacher"&gt;
+    &lt;label for="teacher"&gt;teacher&lt;/label&gt;
+    &lt;br&gt;
+    &lt;button type="submit"&gt;Send&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+            <div class="rendered">
+                <form>
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" placeholder="Your name" required>
+                    <br>
+                    <label for="msg">Message:</label>
+                    <textarea id="msg" name="msg" rows="3" required></textarea>
+                    <br>
+                    <label for="topic">Topic:</label>
+                    <select name="topic" id="topic">
+                        <option value="inquiry">Inquiry</option>
+                        <option value="complain">Complain</option>
+                        <option value="comment">Comment</option>
+                    </select>
+                    <br>
+                    <input type="radio" name="role" id="student" value="student">
+                    <label for="student">student</label>
+                    <input type="radio" name="role" id="teacher" value="teacher">
+                    <label for="teacher">teacher</label>
+                    <br>
+                    <button type="submit">Send</button>
+                </form>
+            </div>
+
+            <p>Every field should have a <code>&lt;label&gt;</code> whose <code>for</code> attribute matches the
+                field's <code>id</code> — it makes the form accessible (e.g. for screen readers) and gives users a
+                bigger click target. The <code>required</code> attribute stops the browser from submitting the form
+                with empty fields — try clicking <b>Send</b> without filling anything in.
+                Since we don't have a server yet, a successful submit simply reloads the page; we will handle real
+                submissions when we talk about JavaScript.
+            </p>
+        </section>
+
+        <section id="extra">
+            <h2>Extra Markups</h2>
+
+            <p>Iframes are like little windows to other web pages. Use <code>&lt;iframe&gt;</code> with a
+                <code>src</code> to embed another page within your page. This is commonly used for embedding videos,
+                maps, or other external content.
+            </p>
+            <pre><code  class="language-html">&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/fJWR7dBuc18?si=KZkVeOrzCiI5KX7K" 
+title="YouTube video player" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;</code></pre>
+            <div class="rendered">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/fJWR7dBuc18?si=KZkVeOrzCiI5KX7K"
+                    title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+            </div>
+
+            <p> Some characters are reserved in HTML. If you use the less than (&lt;) or greater than (&gt;) signs in
+                your HTML text, the browser might mix them with tags.
+                To display these characters as text, you need to use HTML entities: <code>&amp;lt;</code> for &lt; and
+                <code>&amp;gt;</code> for &gt;.Other common entities include <code>&amp;amp;</code> for &amp; and
+                <code>&amp;quot;</code> for double quotes (").
+                For a more complete list of HTML entities, check <a
+                    href="https://www.htmlandcssbook.com/extras/html-escape-codes/">this page</a>.
+            </p>
+            <pre><code  class="language-html">&amp;lt;div&amp;gt;This will show as &lt;div&gt; in the browser&amp;lt;/div&amp;gt;</code></pre>
+            <div class="rendered">
+                &lt;div&gt;This will show as &lt;div&gt; in the browser&lt;/div&gt;
+            </div>
+
+            <p>
+                <code>&lt;hr&gt;</code> element stands for horizontal rule and can be used as a clear visual divider between different topics. 
+                You can see an example of an <code>&lt;hr&gt;</code> element below.
+            </p>
+             
+
+            <p>Of course there are more HTML tags than what can be covered in this class, you can check <a
+                    href="https://www.w3schools.com/tags/">this page</a> for more.</p>
+        </section>
+
+        <hr>
+
+        <h2>CSS</h2>
+
+        <section id="color">
+            <h2>Color</h2>
+            <p>CSS uses color values to style text, backgrounds, borders, and more. </p>
+
+            <pre><code class="language-css">/* Color always mean text color */
+color: orange;
+/* Background color */
+background-color: #ecf0f1;
+/* Border color */  
+border: 1px solid #e74c3c;</code></pre>
+
+            <div class="rendered">
+                <p style="color:orange;">This text is colored with <code>color</code>.</p>
+                <p style="background-color:#ecf0f1; padding:0.3rem;">This paragraph has a <code>background-color</code>.
+                </p>
+                <p style="border:1px solid #e74c3c; padding:0.3rem;">This box has a red border.</p>
+            </div>
+
+            <p>CSS offers several ways to specify colors. Every color value can also include an <b>alpha channel</b> to
+                control opacity.
+            </p>
+            <h3>Color Names</h3>
+            <p>CSS supports 140 named colors like <code>red</code>, <code>lightblue</code>, or even <code>tomato</code>.
+                For a full list of supported names, see
+                <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/named-color"
+                    target="_blank">MDN Web Docs</a>.
+            </p>
+
+            <h3>RGB / RGBA</h3>
+            <p><code>rgb(r, g, b)</code> uses decimal numbers from 0 to 255. Add a fourth value for alpha opacity:
+                <code>rgba(r, g, b, a)</code> where alpha is a number between 0 (fully transparent) and 1 (fully
+                opaque).
+            </p>
+
+            <h3>HEX</h3>
+            <p>A six-digit hexadecimal notation: <code>#rrggbb</code>. The first two digits stand for red, the next two
+                for green, the last two for blue. Values range from <code>00</code> (none) to <code>ff</code> (full).
+                So <code>#ffffff</code> is white, <code>#000000</code> is black, and <code>#ff0000</code> is red.
+                You can use the shorter version <code>#rgb</code> when each pair has identical digits, e.g.
+                <code>#333</code> equals
+                <code>#333333</code>.
+            </p>
+
+
+
+            <h3>HSL / HSLA</h3>
+            <p><code>hsl(h, s%, l%)</code> stands for <b>hue</b> (0–360 on the color wheel), <b>saturation</b>
+                (0%–100%), and <b>lightness</b> (0%–100%). Like RGB, an alpha channel can be added:
+                <code>hsla(h, s%, l%, a)</code>.
+            </p>
+
+            <!-- create a div of rainbow color using hsl as a mini demo, saturation 50%, no padding -->
+            <div id="hsl-demo">
+                <div class="swatch" style="background:hsl(0, 60%, 50%);">0</div>
+                <div class="swatch" style="background:hsl(60, 60%, 50%);">60</div>
+                <div class="swatch" style="background:hsl(120, 60%, 50%);">120</div>
+                <div class="swatch" style="background:hsl(180, 60%, 50%);">180</div>
+                <div class="swatch" style="background:hsl(240, 60%, 50%);">240</div>
+                <div class="swatch" style="background:hsl(300, 60%, 50%);">300</div>
+            </div>
+
+            <p> It is easier to create a color palette with HSL, while RGB is more common for precise color matching.
+                Named colors are convenient for quick styling but less flexible.</p>
+            <pre><code class="language-css">/* Named color */
+color: tomato;
+
+/* HEX */
+color: #ff6600;
+color: #f60;        /* shorthand */
+
+/* RGB / RGBA */
+color: rgb(255, 102, 0);
+color: rgba(255, 102, 0, 0.6);
+
+/* HSL / HSLA */
+color: hsl(24, 100%, 50%);
+color: hsla(24, 100%, 50%, 0.6);</code></pre>
+
+            <div class="rendered">
+                <div style="background:#ddd;padding:1em;">
+                    <div class="swatch" style="background:tomato;"></div>
+                    <div class="swatch" style="background:#ff6600;"></div>
+                    <div class="swatch" style="background:rgb(255,102,0);"></div>
+                    <div class="swatch" style="background:rgba(255,102,0,0.5);"></div>
+                    <div class="swatch" style="background:hsl(24,100%,50%);"></div>
+                    <div class="swatch" style="background:hsla(24,100%,50%,0.3);"></div>
+                    <p style="clear:both; margin-top:0.5rem;">
+                        <span style="background:tomato; padding:0.2rem 0.6rem;">tomato</span>
+                        <span style="background:#ff6600; padding:0.2rem 0.6rem;">#ff6600</span>
+                        <span style="background:rgb(255,102,0); padding:0.2rem 0.6rem;">rgb</span>
+                        <span style="background:rgba(255,102,0,0.5); padding:0.2rem 0.6rem;">rgba 50%</span>
+                        <span style="background:hsl(24,100%,50%); padding:0.2rem 0.6rem;">hsl</span>
+                        <span style="background:hsla(24,100%,50%,0.3); padding:0.2rem 0.6rem;">hsla 30%</span>
+                    </p>
+                </div>
+            </div>
+
+        </section>
+
+        <section id="selectors">
+            <h2>CSS Selectors</h2>
+            <p>Selectors define <em>which</em> elements a CSS rule applies to. Below are the most common three cases:
+            </p>
+
+            <pre><code class="language-css">/* Type selector — targets all &lt;p&gt; elements */
+p { color: #2c3e50; }
+
+/* Class selector — targets elements with class="highlight" */
+.highlight { background: #ffeaa7; }
+
+/* ID selector — targets the element with id="special" */
+#special { border: 2px solid #e74c3c; }</code></pre>
+            <div class="rendered">
+                <p>This is a plain paragraph (type selector).</p>
+                <p class="selector-demo" style="background:#ffeaa7;">This has <code>class="highlight"</code> applied.
+                </p>
+                <p class="selector-demo" style="border:2px solid #e74c3c;" id="special">This has
+                    <code>id="special"</code> applied.</p>
+            </div>
+
+            <h3 id="child-selector">Child Selector (<code>parent > child</code>)</h3>
+            <p>Targets elements that are <em>direct</em> children of a parent.</p>
+            <pre><code class="language-html">&lt;style&gt;
+    /* Only &lt;a&gt; that is a direct child of .child-demo */
+    .child-demo > a { color: #e74c3c; font-weight: bold; }
+&lt;/style&gt;
+
+&lt;div class="child-demo"&gt;
+    &lt;a href="#child-selector"&gt;Direct child link (bold + red)&lt;/a&gt;
+    &lt;span&gt;
+        &lt;a href="#child-selector"&gt;Nested inside a span — &lt;em&gt;not&lt;/em&gt; a direct child&lt;/a&gt;
+    &lt;/span&gt;
+&lt;/div&gt;
+</code></pre>
+            <div class="rendered selector-demo child-demo">
+                <a href="#">Direct child link (bold + red)</a>
+                <span>
+                    <a href="#">Nested inside a span — <em>not</em> a direct child</a>
+                </span>
+            </div>
+
+            <h3 id="desc-demo">Descendant Selector (<code>ancestor descendant</code>)</h3>
+            <p>Targets <em>any</em> element nested inside an ancestor, regardless of depth.</p>
+            <pre><code class="language-html">&lt;style&gt;
+    /* All &lt;a&gt; inside .desc-demo (including nested ones) */
+    .desc-demo a { color: #8e44ad; font-style: italic; }
+&lt;/style&gt;
+&lt;div class="desc-demo"&gt;
+    &lt;a href="#desc-demo"&gt;Direct child link (italic + purple)&lt;/a&gt; 
+    &lt;span&gt;
+        &lt;a href="#desc-demo"&gt;Nested link — still matches (italic + purple)&lt;/a&gt;
+    &lt;/span&gt;
+&lt;/div&gt;</code></pre>
+
+            <div class="rendered selector-demo desc-demo">
+                <a href="#desc-demo">Direct child link</a>
+                <span>
+                    <a href="#desc-demo">Nested link — still matches</a>
+                </span>
+            </div>
+
+            <h3>Adjacent Sibling (<code>element + sibling</code>)</h3>
+            <p>Targets an element that comes <em>immediately after</em> a specified element (same parent).</p>
+            <pre><code class="language-html">&lt;style&gt;
+    /* &lt;p&gt; that immediately follows an &lt;h4&gt; */
+    .adjacent-demo h4 + p { color: #d35400; font-weight: bold; }
+&lt;/style&gt;
+&lt;div class="adjacent-demo"&gt;
+    &lt;h4&gt;Heading&lt;/h4&gt;
+    &lt;p&gt;This paragraph is immediately after the h4 (matched).&lt;/p&gt;
+    &lt;p&gt;This paragraph is second — &lt;em&gt;not&lt;/em&gt; adjacent.&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+            <div class="rendered adjacent-demo">
+                <h4 style="margin:0;">Heading</h4>
+                <p>This paragraph is immediately after the h4 (matched).</p>
+                <p>This paragraph is second — <em>not</em> adjacent.</p>
+            </div>
+
+            <h3>General Sibling (<code>element ~ sibling</code>)</h3>
+            <p>Targets <em>all</em> siblings that follow a specified element.</p>
+            <pre><code class="language-html">&lt;style&gt;
+    /* All &lt;p&gt; that follow an &lt;h4&gt; (not just the first one) */
+    .general-demo h4 ~ p { color: #27ae60; }
+&lt;/style&gt;
+&lt;div class="general-demo"&gt;
+    &lt;h4&gt;Heading&lt;/h4&gt;
+    &lt;p&gt;First paragraph after h4 (matched).&lt;/p&gt;
+    &lt;p&gt;Second paragraph (also matched).&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+            <div class="rendered general-demo">
+                <h4 style="margin:0;">Heading</h4>
+                <p>First paragraph after h4 (matched).</p>
+                <p>Second paragraph (also matched).</p>
+            </div>
+
+            <h3>Attribute Selectors</h3>
+            <p>Target elements based on the presence or value of an attribute. One can use
+                various operators to match exact values, partial values, or even the presence of an attribute.
+                See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors" target="_blank">MDN
+                    Web Docs</a> for all the possibilities.</p>
+            <pre><code class="language-css">/* Elements with data-type "primary" */
+[data-type="primary"] { 
+    background: #3498db; 
+}
+
+/* Links starting with https */
+a[href^="https"]{ 
+    color:purple;
+}
+
+/* Classes containing "example" -> class is a special attribute*/
+span[class*="example"] {
+    color: #ff0000; 
+}
+</code></pre>
+            <style>
+                [data-type="primary"] {
+                    background: #3498db;
+                }
+
+                /* Links starting with https */
+                a[href^="https"] {
+                    color: purple;
+                }
+
+                /* Classes containing "example" -> class is a special attribute*/
+                span[class*="example"] {
+                    color: #ff0000;
+                }
+            </style>
+            <div class="rendered">
+                <p><span data-type="primary">Primary</span> &nbsp;
+                    <span data-type="secondary"
+                        style="background:#95a5a6;color:#fff;padding:0.2rem 0.5rem;border-radius:3px;">Secondary</span>
+                </p>
+                <p>
+                    <a href="https://example.com">Secure link</a> &nbsp;
+                    <a href="http://example.com">Regular link</a>
+                </p>
+                <p>
+                    <span class="example">This has "example" in the class name.</span> &nbsp;
+                    <span class="test-example">This also matches because it contains "example".</span> &nbsp;
+                    <span class="sample">This does not match.</span>
+                </p>
+            </div>
+
+            <h3>Pseudo-classes</h3>
+            <p>Another way to specify conditions is with <b>pseudo-classes</b>, which target elements in a certain
+                state. For example,
+                <code>:first-child</code> targets an element that is the first child of its
+                parent,<code>:last-child</code> targets the last child,
+                and <code>:nth-child(n)</code> targets the nth child. There are also pseudo-classes for user
+                interaction like <code>:hover</code>, <code>:focus</code>, and <code>:active</code> — try the demo
+                below.
+            </p>
+
+            <pre><code class="language-html">&lt;style&gt;
+    .pseudo-demo :first-child { color: red; }
+    .pseudo-demo :last-child { color: green; }
+    .pseudo-demo :nth-child(2) { color: orange; }
+&lt;/style&gt;
+&lt;div class="pseudo-demo"&gt;
+    &lt;p&gt;First child (red)&lt;/p&gt;
+    &lt;p&gt;Second child (orange)&lt;/p&gt;
+    &lt;p&gt;Third child (green)&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+            <style>
+                .pseudo-demo :first-child {
+                    color: red;
+                }
+
+                /* Last child of .pseudo-demo */
+                .pseudo-demo :last-child {
+                    color: green;
+                }
+
+                /* nth-child(2) of .pseudo-demo */
+                .pseudo-demo :nth-child(2) {
+                    color: orange;
+                }
+            </style>
+            <div class="rendered pseudo-demo">
+                <p>First child (red)</p>
+                <p>Second child (orange)</p>
+                <p>Third child (green)</p>
+            </div>
+
+            <p>Try the interaction pseudo-classes yourself — hover over the buttons, click and hold one, and click
+                into the input field:</p>
+            <div class="rendered">
+                <span class="interact-btn">Hover me</span>
+                <span class="interact-btn">Click and hold me</span>
+                <br><br>
+                <input class="interact-input" type="text" placeholder="Click here to focus the input">
+            </div>
+
+            <h3>Combining Selectors</h3>
+            <p>Selectors can be combined to target elements with multiple conditions. For example: </p>
+            <pre><code class="language-css">/* Target the first li that is a child of ul with id combined */
+ul#combined li:first-child { 
+    color: teal;
+}</code></pre>
+            <style>
+                ul#combined li:first-child {
+                    color: teal;
+                }
+            </style>
+            <div class="rendered">
+                <ul id="combined">
+                    <li>Apple</li>
+                    <li>Orange</li>
+                    <li>Pear</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="cascade">
+            <h2>CSS Rules Cascade</h2>
+            <p>When multiple CSS rules target the same element, the browser follows a <b>cascade</b> to decide which one
+                wins. Three principles govern this:</p>
+            <ul>
+                <li><b>Specificity:</b> A more specific selector (e.g. <code>#id</code>) beats a less specific one
+                    (e.g. <code>.class</code>), which beats a <code>type</code> selector.</li>
+                <li><b>Last Rule:</b> If two selectors have the same specificity, the one declared <em>last</em> in the
+                    stylesheet wins.</li>
+                <li><b><code>!important</code></b>: A value marked <code>!important</code> overrides all normal
+                    declarations — use it sparingly.</li>
+            </ul>
+
+            <pre><code class="language-html">&lt;style&gt;
+.cascade-box p {
+    color: grey; 
+}
+
+/* Both rules target the same class — the latter wins */
+.cascade-box .text {
+    color: green;  /* this one is ignored */
+} 
+.cascade-box .text { 
+    color: lightblue; /* this one is applied */
+}   
+
+/* #id wins over .class */
+.cascade-box #important-text { 
+    color: orange ; 
+}
+&lt;/style&gt;
+&lt;div class="cascade-box"&gt;
+    &lt;p&gt;This is a normal paragraph without class&lt;/p&gt;
+    &lt;p class="text"&gt;This text uses the &lt;em&gt;last&lt;/em&gt; rule → lightblue.&lt;/p&gt;
+    &lt;p class="text" id="important-text" &gt;This one has important-text as id. — orange.&lt;/p&gt;
+&lt;/div&gt;
+</code></pre>
+            <style>
+                .cascade-box p {
+                    color: grey;
+                }
+
+                .cascade-box .text {
+                    color: green;
+                }
+
+                /* this one is ignored */
+                .cascade-box .text {
+                    color: lightblue;
+                }
+
+                /* this one is applied */
+
+                .cascade-box #important-text {
+                    color: orange;
+                }
+            </style>
+            <div class="rendered cascade-box">
+                <p>This is a normal paragraph without class</p>
+                <p class="text">This text uses the <em>last</em> rule → lightblue.</p>
+                <p class="text" id="important-text">This one has important-text as id. — orange.</p>
+            </div>
+
+            <p>Specificity hierarchy (strongest to weakest): inline styles → <code>#id</code> → <code>.class</code> →
+                <code>type</code>. The <em>last rule</em> only matters when specificity is equal.
+                <code>!important</code>
+                sits above everything (but two <code>!important</code>s fall back to specificity and source order).
+            </p>
+        </section>
+
+        <section id="boxes">
+            <h2>Box Model</h2>
+            <p>Every element in CSS is a rectangular box. The <b>box model</b> consists of content, padding, border, and
+                margin — in that order, from inside out. The tricky thing is that the width and height you set with CSS
+                only apply to the content area by default, so the actual size of the element will be larger once you add
+                padding and borders.
+            </p>
+            <pre><code class="language-css">/* What's the total width of this element? */
+#demo-box {
+    width: 200px;           /* content width */
+    height: 50px;
+    padding: 10px;          /* space between content and border */
+    border: 2px solid #e74c3c; /* border width, style, and color */
+    margin: 20px;           /* space outside the border */
+    background:#3498db;
+}
+                </code></pre>
+            <div class="rendered">
+                <div id="wrapper" style="background-color:grey;width:260px;height:110px;display: flow-root;">
+                <div id="demo-box"
+                    style="text-align:center; background:#3498db; width:200px; height:50px; color:#fff; padding:10px; margin:20px; border: 2px solid #e74c3c;">
+                    
+                    <span style="background-color:black;">This box has margin, border, and padding.</span>
+                </div>
+                </div>
+            </div>
+
+            <details>
+                <summary>What's the total width of the box above? <!-- Click to reveal the answer --> </summary>
+                <!-- <p><code>200px</code> content + <code>2 × 10px</code> padding +
+                    <code>2 × 2px</code> border = <b>224px</b> of rendered width. Add the <code>2 × 20px</code>
+                    margin
+                    and the box takes up <b>264px</b> of space on the page.
+                </p> -->
+            </details>
+
+            <h3>Border</h3>
+            <p><code>border</code> can be set with individual properties for width, style, and color, or with a
+                shorthand that combines all three. You can also specify borders for individual sides (e.g.
+                <code>border-top</code>, <code>border-right</code>, etc.).</p>
+            <pre><code class="language-css">/* Individual properties */
+border-width: 2px;
+border-style: solid;    /* solid, dashed, dotted, double, ... */
+border-color: #e74c3c;
+
+/* Shorthand: width style color; */
+border: 2px dashed #3498db;
+
+/* Individual sides */
+border-top: 3px solid #2ecc71;</code></pre>
+            <div class="rendered box-demo" style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+                <div style="border:2px solid #e74c3c; padding:0.4rem;">solid</div>
+                <div style="border:2px dashed #3498db; padding:0.4rem;">dashed</div>
+                <div style="border:3px dotted #2ecc71; padding:0.4rem;">dotted</div>
+                <div style="border:3px double #9b59b6; padding:0.4rem;">double</div>
+                <div style="border-top:3px solid #e67e22; padding:0.4rem;">border-top only</div>
+            </div>
+
+            <!-- max/min height/width -->
+
+            <h3>Padding &amp; Margin</h3>
+            <p><b>Padding</b> is the space <em>inside</em> the border (between content and border). <b>Margin</b> is the
+                space <em>outside</em> the border (between elements). Similar as with border, you can set padding and
+                margin for all sides at once or for individual sides.</p>
+            <pre><code class="language-css">
+/* all sides → 10px */
+padding: 10px;
+/* top/bottom → 5px, left/right → 30px */
+padding: 5px 30px; 
+/* Same as: top right bottom left */
+padding: 5px 30px 5px 30px;
+
+/* Individual sides */
+padding-top: 1rem;
+margin-top: 15px;</code></pre>
+            <div class="rendered">
+                <div style="background:#3498db; color:#fff; padding:10px;">padding: 10px all sides</div>
+                <div style="background:#e74c3c; color:#fff; padding:5px 30px; margin-top:10px;">
+                    padding: 5px 30px (top/bottom 5px, left/right 30px)
+                </div>
+                <div style="background:#2ecc71; color:#fff; padding:10px; margin-top:15px;">
+                    margin-top: 15px separates me from the box above
+                </div>
+            </div>
+
+            <p><b>Margin collapsing:</b> when two block elements are stacked vertically, their top/bottom margins
+                don't add up — only the larger one is kept. This was a feature back then in the days when most websites 
+                are text based so that one can prevent double margins with this. You can see a simple demo of margin collapsing below.
+                This behavior can happen to both adjacent siblings or parent-child elements, if we don't want margin to collapse, there are certain CSS rules we can use
+                to prevent margin from collapsing. You can find a more detailed explaination about it <a href="https://www.freecodecamp.org/news/what-is-margin-collapse-and-how-to-avoid-it/">here</a>.
+            </p>
+            <div class="rendered">
+                <div style="background:#3498db; color:#fff; padding:10px; margin-bottom:30px;">
+                    margin-bottom: 30px
+                </div>
+                <div style="background:#e74c3c; color:#fff; padding:10px; margin-top:20px;">
+                    margin-top: 20px — the gap between us is still only 30px
+                </div>
+            </div>
+
+                        <h3>Display</h3>
+            <p>Some HTML elements are block-level by default (e.g. <code>&lt;div&gt;</code>,
+                <code>&lt;p&gt;</code>), while others are inline (e.g. <code>&lt;span&gt;</code>
+                <code>&lt;a&gt;</code>). The
+                <code>display</code> attribute controls how an element is displayed. The most common values are
+                <code>block</code>, <code>inline</code>, and <code>inline-block</code>. 
+                A block element takes up the full width available and starts on a new line, while an inline element only
+                takes up as much width as necessary and can sit next to other inline elements.
+                An inline-block element is like a block element(padding/margin...) but can flow next to other inline or
+                inline-block elements.
+            </p>
+
+            <pre><code class="language-css">display: block;        /* full width, own line */
+display: inline;       /* only as wide as its content, flows in text */
+display: inline-block; /* respects width/padding, but flows next to others */</code></pre>
+            <div class="rendered">
+                <div style="display:block; background:#3498db; color:#fff; padding:0.5rem;">
+                    block — takes the full width available
+                </div>
+                <div style="margin-top:0.5rem;">
+                    <div style="display:inline; background:#e74c3c; color:#fff;">inline — only as wide as its content</div>
+                    <div style="display:inline; background:#2ecc71; color:#fff;">inline — flows next to other inline content</div>
+                </div>
+                <div style="margin-top:0.5rem;">
+                    <div style="display:inline-block; background:#9b59b6; color:#fff; padding:0.5rem; width:170px;">inline-block — respects width and padding</div>
+                    <div style="display:inline-block; background:#e67e22; color:#fff; padding:0.5rem; width:170px;">inline-block — but still flows inline</div>
+                </div>
+            </div>
+
+            <p>See how a simple navigation menu is created using an unordered list below by changing its default display
+                value;</p>
+
+            <pre><code class="language-css">#navdemo li {
+    display: inline; 
+    margin-right: 1rem;
+}</code></pre>
+            <div class="rendered">
+                <ul>
+                    <li>Home</li>
+                    <li>About</li>
+                    <li>Contact</li>
+                </ul>
+
+                <style>
+                    #navdemo li {
+                        display: inline;
+                        margin-right: 1rem;
+                    }
+                </style>
+                <ul id="navdemo">
+                    <li>Home</li>
+                    <li>About</li>
+                    <li>Contact</li>
+                </ul>
+
+            </div>
+
+            <h3>Overflow</h3>
+            <p>When content is larger than its box, use <code>overflow</code> to control what happens.</p>
+            <pre><code class="language-css">overflow: hidden;    /* clips excess content */
+overflow: scroll;    /* always shows scrollbars */
+overflow: auto;      /* shows scrollbars only when needed */</code></pre>
+            <div class="rendered" style="display:flex; gap:1rem; flex-wrap:wrap;">
+                <div class="box-overflow" style="overflow:hidden;">
+                    <b>overflow:hidden</b> — This text is too long and will get clipped at the edge of the box.
+                </div>
+                <div class="box-overflow" style="overflow-y:scroll;">
+                    <b>overflow:scroll</b> — This text is too long and will always show scrollbars.
+                </div>
+                <div class="box-overflow" style="overflow:auto;">
+                    <b>overflow:auto</b> — This text is too long and will trigger a scrollbar.
+                </div>
+            </div>
+
+            <h3>Border Radius &amp; Box Shadow</h3>
+
+            <p><code>border-radius</code> rounds the corners of a box. You can set a single value to round all corners
+                equally, or specify individual values for each corner (top-left, top-right, bottom-right, bottom-left).
+            </p>
+            <pre><code class="language-css">border-radius: 8px; /* all corners */
+border-radius: 8px 0 8px 0; /* top-left, top-right, bottom-right, bottom-left */</code></pre>
+            <div class="rendered" style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+                <div style="border-radius:8px; background:#3498db; color:#fff; padding:0.5rem;">
+                    border-radius: 8px
+                </div>
+                <div style="border-radius:8px 0 8px 0; background:#e74c3c; color:#fff; padding:0.5rem;">
+                    border-radius: 8px 0 8px 0
+                </div>
+            </div>
+
+            The <code>box-shadow</code> property attaches one or more shadows to an element. If more than one shadow is attached, different shadows are separated by  ','.
+            Since it's a bit abstract to imagine how box-shadow actually look like, usually we create one using a <a href="https://www.dosigny.com/tools/box-shadow-generator">CSS box shadow generator</a>.
+
+             <pre><code class="language-css">box-shadow: 4px 4px 8px rgba(0,0,0,0.2);  /* x y blur color */
+border-radius: 8px;                         /* round corners */</code></pre>
+            <div class="rendered" style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+                <div class="box-shadow-demo" style="box-shadow:2px 2px 6px rgba(0,0,0,0.15);">
+                    soft shadow
+                </div>
+                <div class="box-shadow-demo" style="box-shadow:4px 4px 12px rgba(0,0,0,0.3);">
+                    heavy shadow
+                </div>
+                <div class="box-shadow-demo" style="border-radius:8px; box-shadow:2px 2px 6px rgba(0,0,0,0.15);">
+                    rounded + shadow
+                </div>
+                <div class="box-shadow-demo"
+                    style="border-radius:50%; width:60px; height:60px; text-align:center; line-height:60px; padding:0; box-shadow:2px 2px 6px rgba(0,0,0,0.15);">
+                    circle
+                </div>
+            </div>
+
+
+            <h3>Opacity & Hiding</h3>
+            <p>The <code>opacity</code> property sets the transparency for an <em>entire element</em> (including its
+                children), whereas <code>rgba</code> / <code>hsla</code> only affect a single background or color.</p>
+            <pre><code class="language-css">/* Makes the whole box (and its text) semi-transparent */
+div { opacity: 0.5; }</code></pre>
+            <div class="rendered">
+                <div style="display:inline-block; background:#3498db; color:#fff; padding:0.5rem 1rem; opacity:1;">
+                    opacity 1
+                </div>
+                <div style="display:inline-block; background:#3498db; color:#fff; padding:0.5rem 1rem; opacity:0.6;">
+                    opacity 0.6
+                </div>
+                <div style="display:inline-block; background:#3498db; color:#fff; padding:0.5rem 1rem; opacity:0.3;">
+                    opacity 0.3
+                </div>
+            </div>
+
+            <p>One can also use <code>display: none;</code> to hide an element completely (it won't take up any space),
+                or <code>visibility: hidden;</code> to hide it while still reserving its space in the layout.</p>
+
+            <pre><code class="language-css">display: none; /* element is not rendered and takes no space */
+visibility: hidden; /* element is hidden but still takes up space */
+opacity:0; /* element is fully transparent but still takes up space and can be interacted with (e.g. hover) */
+</code></pre>
+            <style>
+                #hiddenDemo p {
+                    background-color: #eee;
+                }
+
+                #hiddenDemo img:hover {
+                    opacity: 1 !important;
+                    cursor: pointer;
+                }
+            </style>
+
+            <div class="rendered" id="hiddenDemo">
+                <p>This paragraph has an image that is hidden with <code>display:none</code>
+                    <img src="../images/devices.jpg" style="width:100px; height:auto;display:none;">
+                    — it won't show up and won't take up space.
+                </p>
+                <p>
+                    This paragraph has an image that is hidden with <code>visibility:hidden</code>.
+                    <img src="../images/devices.jpg" style="width:100px; height:auto; visibility:hidden;">
+                    It won't show up but will still take up space, you can't interact with it.
+                </p>
+                <p>
+                    This paragraph has an image that is hidden with <code>opacity:0</code>.
+                    <img src="../images/devices.jpg" style="width:100px; height:auto; opacity:0;">
+                    If you hover over the area where the image is, it will show up!
+                </p>
+            </div>
+
+
+            <h3>Centering a Block Element</h3>
+            <p>To center a block-level element horizontally, give it a width and set <code>margin: 0 auto</code>.</p>
+            <pre><code class="language-css">.box-center {
+    width: 200px;
+    margin: 0 auto;
+}</code></pre>
+            <div class="rendered" style="background:#f5f5f5;">
+                <div class="box-center">Centered</div>
+            </div>
+
+        </section>
+
+        <section id="text">
+            <h2>Text Styling</h2>
+            <p>CSS provides a lot of properties to control the appearance of text.</p>
+
+            <h3>Font Family</h3>
+            <p>Use <code>font-family</code> to specify the typeface. Provide fallback options separated by commas.
+                The browser will use the first available font in the list. Mac and Windows have different default fonts,
+                so it's common to include both along with a generic family as the last fallback.
+            </p>
+
+            <p>
+                Font family names can be used without quotation marks in CSS if they contain only letters, numbers,
+                hyphens, or underscores.
+                Single-word names like Arial, Helvetica, or Georgia do not require quotes. However, font names
+                containing spaces (e.g., "Times New Roman") or special characters should be quoted.
+            </p>
+            <pre><code class="language-css">font-family: 'Helvetica', Arial, sans-serif;
+font-family: 'Georgia', 'Times New Roman', serif;
+font-family: 'Courier New', monospace;</code></pre>
+            <div class="rendered">
+                <p style="font-family:'Helvetica',Arial,sans-serif;">Sans-serif (Helvetica / Arial)</p>
+                <p style="font-family:'Georgia','Times New Roman',serif;">Serif (Georgia)</p>
+                <p style="font-family:'Courier New',monospace;">Monospace (Courier New)</p>
+            </div>
+
+            <p>If one wants to use a custom font that may not be available on all devices, they can use the
+                <code>@font-face</code> rule to load a font file from a URL. This allows for consistent typography
+                across different platforms.</p>
+            <pre><code class="language-css">@font-face {
+    font-family: 'MyCustomFont';
+    src: url('https://example.com/fonts/mycustomfont.woff2') format('woff2');
+}
+body {
+    font-family: 'MyCustomFont', sans-serif;
+}</code></pre>
+            <div class="rendered">
+                <p style="font-family:'MyCustomFont',sans-serif;">This text uses MyCustomFont if available, otherwise
+                    falls back to sans-serif.</p>
+            </div>
+
+            <h3>Font Size</h3>
+            <p><code>font-size</code> can be set in pixels (<code>px</code>), ems (<code>em</code>), rems
+                (<code>rem</code>), percentages, or keywords (<code>small</code>, <code>medium</code>,
+                <code>large</code>).
+
+            </p>
+            <pre><code class="language-css">font-size: 16px;
+font-size: 1.2rem; /* Relative to Root (html element) */
+font-size: 1.2em; /* Relative to Parent */
+font-size: 120%; /* Relative to Parent */
+font-size: medium; 
+</code></pre>
+            <div class="rendered">
+                <p style="font-size:12px;">12px</p>
+                <p style="font-size:16px;">16px</p>
+                <p style="font-size:24px;">24px</p>
+                <p style="font-size:1.5em;">1.5em</p>
+                <p style="font-size:medium;">Medium</p>
+            </div>
+
+            <h3>Font Weight &amp; Style</h3>
+            <p><code>font-weight</code> controls the thickness of the text. Common values are <code>normal</code>,
+                <code>bold</code>, <code>black</code> or numeric weights from 100 to 900 (where 400 is normal and 700 is
+                bold). <code>font-style</code> controls whether the text is italicized or not, with values like
+                <code>normal</code>, <code>italic</code>, and <code>oblique</code>.</p>
+            <pre><code class="language-css">font-weight: bold;        /* also: normal, 100–900 */
+font-weight: 700;
+font-style: italic;       /* also: normal, oblique */</code></pre>
+            <div class="rendered">
+                <p><span style="font-weight:normal;">normal</span> |
+                    <span style="font-weight:bold;">bold</span> |
+                    <span style="font-weight:700;">weight 700</span> |
+                    <span style="font-weight:300;">weight 300</span>
+                </p>
+                <p style="font-family: serif;"><span style="font-style:normal;">normal</span> |
+                    <span style="font-style:italic;">italic</span> |
+                    <span style="font-style:oblique;">oblique</span>
+                </p>
+            </div>
+
+            <h3>Text Transform &amp; Decoration</h3>
+            <p><code>text-transform</code> controls capitalization while not affecting the actual text content, this is
+                very useful when one wants to add text transformation only for the visual styles.
+                <br>
+                <code>text-decoration</code> adds lines like underline or strikethrough. Note that links are underlined
+                by default, but this can be overridden with <code>text-decoration: none;</code>.
+            </p>
+            <pre><code class="language-css">text-transform: uppercase;   /* uppercase, lowercase, capitalize */
+text-decoration: underline;  /* underline, overline, line-through, none */</code></pre>
+            <div class="rendered">
+                <p style="text-transform:uppercase;">uppercase text</p>
+                <p style="text-transform:lowercase;">LOWERCASE TEXT</p>
+                <p style="text-transform:capitalize;">capitalize this line</p>
+                <p><span style="text-decoration:underline;">underline</span> |
+                    <span style="text-decoration:overline;">overline</span> |
+                    <span style="text-decoration:line-through;">line-through</span> |
+                    <a href="#" style="text-decoration:none; color:#e74c3c;">link without underline</a>
+                </p>
+            </div>
+
+            <h3>Line Height &amp; Spacing</h3>
+            <p><code>line-height</code> controls the vertical spacing between lines of text. A unitless value (e.g. 1.5)
+                multiplies the font size, while a length value (e.g. 24px) sets an absolute line height.
+                <code>letter-spacing</code> adjusts the space between characters, and <code>word-spacing</code> adjusts
+                the space between words.</p>
+            <pre><code class="language-css">line-height: 1.6;           /* unitless multiplier */
+letter-spacing: 2px;        /* space between characters */
+word-spacing: 4px;          /* space between words */</code></pre>
+            <div class="rendered">
+                <p style="line-height:1.2; border:1px solid #ddd; padding:0.3rem;">
+                    <b>line-height: 1.2</b><br>Line one<br>Line two
+                </p>
+                <p style="line-height:2; border:1px solid #ddd; padding:0.3rem;">
+                    <b>line-height: 2</b><br>Line one<br>Line two
+                </p>
+                <p style="letter-spacing:1px;">letter-spacing: 1px</p>
+                <p style="letter-spacing:4px;">letter-spacing: 4px</p>
+                <p style="word-spacing:8px;">word spacing: 8 pixels</p>
+            </div>
+
+            <h3>Text Align </h3>
+            <p><code>text-align</code> controls horizontal alignment of text within a block-level element, with values
+                like <code>left</code>, <code>right</code>, <code>center</code>, and <code>justify</code>. </p>
+            <pre><code class="language-css">text-align: left;      /* left, right, center, justify */</code></pre>
+            <div class="rendered">
+                <p style="text-align:left; border:1px solid #ddd; padding:0.3rem;">Left-aligned text.</p>
+                <p style="text-align:center; border:1px solid #ddd; padding:0.3rem;">Center-aligned text.</p>
+                <p style="text-align:right; border:1px solid #ddd; padding:0.3rem;">Right-aligned text.</p>
+
+            </div>
+
+            <h3>Text Shadow</h3>
+            <p>You can use <code>text-shadow</code> to add a shadow effect to text. The syntax is
+                <code>text-shadow: offset-x offset-y blur-radius color;</code>.
+                A <a href="https://cssgenerator.org/text-shadow-css-generator.html">CSS Generator</a> can help you
+                create the kind of shadow you have in mind.
+            </p>
+
+            <pre><code class="language-css">text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        </code></pre>
+
+            <div class="rendered">
+                <p style="text-shadow:2px 2px 4px rgba(0,0,0,0.5);">This text has a shadow.</p>
+            </div>
+        </section>
+
+        <section id="list-menu">
+            <h2>List</h2>
+            <p>Lists are a common way to structure content, and CSS allows you to style them in various ways. By
+                default, unordered lists (<code>&lt;ul&gt;</code>) have bullet points, and ordered lists
+                (<code>&lt;ol&gt;</code>) have numbers. You can remove these default styles and create custom navigation
+                menus or item lists.</p>
+
+
+            <p>The pattern is simple: start with a <code>&lt;ul&gt;</code>, remove <code>list-style</code> and default
+                spacing, arrange items horizontally with <code>display: flex</code>, and style the
+                <code>&lt;a&gt;</code>
+                tags as block-level buttons. This approach is accessible, responsive-ready, and works across all
+                browsers.
+            </p>
+
+            <pre><code class="language-css">/* Here we are showing a simple way to create a menu combining lists and links.*/             
+.nav-menu {
+    list-style: none; /* remove bullets */
+    padding: 0;       /* remove default padding */
+    margin: 0;        /* remove default margin */
+    display: flex;    /* arrange items horizontally */
+    gap: 1rem;        /* space between items */
+}
+
+/* highlight the current page */
+.nav-menu .active a {
+    color: #e74c3c;
+    font-weight: bold;
+}</code></pre>
+            <style>
+                .nav-menu {
+                    list-style: none;
+                    /* remove bullets */
+                    padding: 0;
+                    /* remove default padding */
+                    margin: 0;
+                    /* remove default margin */
+                    display: flex;
+                    /* arrange items horizontally */
+                    gap: 1rem;
+                    /* space between items */
+                }
+
+                /* highlight the current page */
+                .nav-menu .active a {
+                    color: #e74c3c;
+                    font-weight: bold;
+                }
+            </style>
+            <div class="rendered">
+                <ul class="nav-menu">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#">Courses</a></li>
+                    <li><a href="#">Schedule</a></li>
+                    <li><a href="#">Assignments</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="inheritance">
+            <h2>Inheritance</h2>
+            <p>Some CSS properties are <b>inherited</b> from parent to child. Text-related properties like
+                <code>font-family</code>, <code>color</code>, and <code>font-size</code> are typically inherited,
+                while box-model properties like <code>border</code>, <code>padding</code>, and <code>margin</code> are
+                <em>not</em>.
+            </p>
+            <pre><code class="language-css">/* Children inherit font-family and color from .inherit-demo */
+.inherit-demo {
+    font-family: Georgia, serif;
+    color: #2c3e50;
+}
+
+/* Border is NOT inherited — you must set it directly */
+.inherit-demo a { border: 1px solid #e74c3c; }</code></pre>
+            <div class="rendered inherit-demo">
+                <p>This paragraph inherits <code>Georgia</code> and the dark color.</p>
+                <p>A <a href="#">link inside</a> inherits the color but <em>not</em> the border — the border had to be
+                    set explicitly on <code>a</code>.</p>
+                <div style="border:2px dashed #27ae60; padding:0.3rem; margin-top:0.3rem;">
+                    This nested div also inherits the font; its <code>border</code> is set directly on this element.
+                </div>
+            </div>
+
+            <p>You can use the <code>inherit</code> keyword to force inheritance of a normally non-inherited property,
+                and
+                <code>initial</code> to reset to the browser's default value.
+            </p>
+
+            <pre><code class="language-html">&lt;div style="color:blue;"&gt;
+  Text inside this div is set to blue
+  &lt;p&gt;This paragraph inherits the color from its parent by default → blue.&lt;/p&gt;
+  &lt;p style="color:initial;"&gt;This paragraph is reset to the default color → black.&lt;/p&gt; 
+  &lt;div style="width:200px; border:#1c6ea4 1px solid; padding:5px;"&gt;
+    div outside
+    &lt;div style="border:inherit;"&gt;div inside &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+</code></pre>
+
+            <div class="rendered" style="color:blue;">
+                Text inside this div is set to blue
+                <p>This paragraph inherits the color from its parent by default → blue.</p>
+                <p style="color:initial;">This paragraph is reset to the default color → black.</p>
+                <div style="border:#1c6ea4 1px solid; width:200px;padding:5px;">
+                    div outside
+                    <div style="border:inherit;padding:inherit;">div inside </div>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="exercise" id="exercise">
+            <h2>Exercise</h2> -> <a href="exercise.html" target="_blank"> CSS Selectors</a>
+        </section>
+
+        <p style="text-align:right;"><a href="#top">Back to top ↑</a></p>
+
+    </main>
+
+    </div>
+
+    <!-- todo:
+    continue improving workflow
+    add some notes on margin collapsing 
+    -->
+
+    <footer>
+        <small>Web Programming WiSe 2026, Qianxun Chen</small>
+    </footer>
+</body>
+
+</html>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Course material for week 1 of Web Programming SoSe 2026">
+    <meta name="description" content="Course material for week 1 of Web Programming WiSe 2026">
     <meta name="keywords" content="HTML, Web Programming">
     <meta name="author" content="Qianxun Chen">
     <title>HTML Basics</title>
@@ -16,13 +16,29 @@
 </head>
 
 <body>
-    <header>
-        <h1>Week 1: HTML + CSS Basics</h1>
+    <header id="top">
+        <h1>Session 1: HTML Basics</h1>
     </header>
+
+    <div class="layout">
+
+        <aside class="sidebar" aria-label="Table of contents">
+            <ul>
+                <li><a href="../index.html">← Back to Home</a></li>
+            </ul>
+            <h3>HTML</h3>
+            <ul>
+                <li><a href="#documentStructure">Document Structure</a></li>
+                <li><a href="#headingsParagraphs">Headings + Paragraphs</a></li>
+                <li><a href="#links">Links</a></li>
+                <li><a href="#lists">Lists</a></li>
+                <li><a href="#commenting">Commenting</a></li>
+            </ul>
+        </aside>
 
     <main>
         <section id="documentStructure">
-            <h2>1. Document Structure</h2>
+            <h2>Document Structure</h2>
             <p>The bare bones of every HTML page starts with a <code>&lt;!DOCTYPE html&gt;</code> declaration.
                 It tells the browser to render your page according to HTML5 specifications.
                 HTML4 had different doctypes for various modes, but HTML5 simplified this to a single declaration.
@@ -35,7 +51,8 @@
                 The head usually contains
                 a <code>&lt;title&gt;</code> tag for the page title shown in the browser tab.
                 And zou will usually find a <code>&lt;meta charset="UTF-8"&gt;</code> tag to specify character
-                encoding, and other meta tags for viewport settings, SEO, and more. Links to CSS stylesheets and JavaScript files are also placed in the head.
+                encoding, and other meta tags for viewport settings, SEO, and more. Links to CSS stylesheets and
+                JavaScript files are also placed in the head.
             </p>
             <p>Attributes are used to provide additional information about an element. They are always included in the
                 opening tag and come in name/value pairs like <code>name="value"</code>.
@@ -66,7 +83,7 @@
         </section>
 
         <section id="headingsParagraphs">
-            <h2>2. Headings + Paragraphs</h2>
+            <h2>Headings + Paragraphs</h2>
             <p>HTML has six levels of headings: <code>&lt;h1&gt;</code> to <code>&lt;h6&gt;</code>, with
                 <code>&lt;h1&gt;</code> being the most important one .
                 You can use headings to structure your content hierarchically.
@@ -112,7 +129,7 @@ excepturi illum nam. Perferendis hic tempora non mollitia quia iste sunt.&lt;/p&
         </section>
 
         <section id="links">
-            <h2>3. Links</h2>
+            <h2>Links</h2>
             <p>
                 Links are created with <code>&lt;a&gt;</code> tags. The <code>href</code> attribute are used to specify
                 the
@@ -147,8 +164,8 @@ excepturi illum nam. Perferendis hic tempora non mollitia quia iste sunt.&lt;/p&
             </div>
         </section>
 
-                <section id="lists">
-            <h2>4. Lists</h2>
+        <section id="lists">
+            <h2>Lists</h2>
             <p><code>&lt;ul&gt;</code> stands for unordered lists and <code>&lt;ol&gt;</code> for ordered lists.
                 Both use <code>&lt;li&gt;</code> for list items. Unordered lists typically display bullet points, while
                 ordered lists display numbers or letters before each item. You can also nest lists inside each other for
@@ -181,7 +198,7 @@ excepturi illum nam. Perferendis hic tempora non mollitia quia iste sunt.&lt;/p&
   &lt;/li&gt;
 </code></pre>
 
-        <div class="rendered">
+            <div class="rendered">
                 <ul>
                     <li>Apple</li>
                     <li>Banana</li>
@@ -206,138 +223,36 @@ excepturi illum nam. Perferendis hic tempora non mollitia quia iste sunt.&lt;/p&
             </div>
         </section>
 
+        <section id="commenting">
+            <h2>Commenting</h2>
+            <p>As in all other programming context, commenting is very important in HTML as well. The syntax in HTML
+                looks like this:</p>
+            <pre><code class="language-html">
+            &lt;!-- This is a single line of comment --&gt;
 
-        <section id="Image">
-            <h2>4. Image</h2>
-            <p>The <code>&lt;img&gt;</code> tag stands for image.
-            <ul>
-                <li><code>src</code> attribute
-                    specifies the image URL</li>
-                <li><code>title</code> attribute is the text that is displayed with a tooltip on hover</li>
-                <li><code>alt</code> attribute provides alternative text for people who can't see the image</li>
-                <li>You can also set the width and height attributes to control the size of the image.</li>
-            </ul>
+            &lt;!-- 
+            This comment has 
+            Multiple lines.
+            --&gt;
+        </code></pre>
+
+            <p>
+                However, we rarely type all these syntaxes manually.
+                In VS Code we can type them using shortcut. On Mac you can press <code>Command + / </code>(forward
+                slash),
+                while on Windows you use <code>Ctrl + /</code>.
+
+                If you want to comment out a section of code, you can just select them and use the same shortcut to
+                comment it out.
             </p>
-            </p>
-            <pre><code class="language-html">&lt;img width="400" title="web developer meme" src="https://cdn.getshifter.co/8a02b8322c8339db67673735bae4923b9ee1696e/uploads/2024/03/web-development.jpeg" alt="I heard you want to be a web developer, here are a few devices to test your site"&gt;</code></pre>
-            <div class="rendered">
-                <img width="400"
-                    src="https://cdn.getshifter.co/8a02b8322c8339db67673735bae4923b9ee1696e/uploads/2024/03/web-development.jpeg"
-                    title="Web developer meme"
-                    alt="I heard you want to be a web developer, here are a few devices to test your site">
-        </section>
-
-        <section id="color">
-            <h2>5. CSS: Color</h2>
-            <p>CSS uses color values to style text, backgrounds, borders, and more. </p>
-
-            <pre><code class="language-css">/* Color always mean text color */
-color: orange;
-/* Background color */
-background-color: #ecf0f1;
-/* Border color */  
-border-color: 1px solid #e74c3c;</code></pre>
-
-<div class="rendered">
-    <p style="color:orange;">This text is colored with <code>color</code>.</p>
-    <p style="background-color:#ecf0f1; padding:0.3rem;">This paragraph has a <code>background-color</code>.</p>    
-    <p style="border:1px solid #e74c3c; padding:0.3rem;">This box has a red border.</p>
-</div>
-
-            <p>CSS offers several ways to specify colors. Every color value can also include an <b>alpha channel</b> to
-                control opacity. 
-            <h3>Color Names</h3>
-            <p>CSS supports 140 named colors like <code>red</code>, <code>lightblue</code>, or even <code>tomato</code>. For a full list of supported names, see 
-                <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/named-color" target="_blank">MDN Web Docs</a>.</p>
-
-            <h3>RGB / RGBA</h3>
-            <p><code>rgb(r, g, b)</code> uses decimal numbers from 0 to 255. Add a fourth value for alpha opacity:
-                <code>rgba(r, g, b, a)</code> where alpha is a number between 0 (fully transparent) and 1 (fully opaque).
-            </p>
-
-            <h3>HEX</h3>
-            <p>A six-digit hexadecimal notation: <code>#rrggbb</code>. The first two digits stand for red, the next two
-                for green, the last two for blue. Values range from <code>00</code> (none) to <code>ff</code> (full).
-                So <code>#ffffff</code> is white, <code>#000000</code> is black, and <code>#ff0000</code> is red.
-                You can use the shorter version <code>#rgb</code> when each pair has identical digits, e.g. <code>#333</code> equals
-                <code>#333333</code>.
-            </p>
-
-
-
-            <h3>HSL / HSLA</h3>
-            <p><code>hsl(h, s%, l%)</code> stands for <b>hue</b> (0–360 on the color wheel), <b>saturation</b>
-                (0%–100%), and <b>lightness</b> (0%–100%). Like RGB, an alpha channel can be added:
-                <code>hsla(h, s%, l%, a)</code>.
-            </p>
-
-            <!-- create a div of rainbow color using hsl as a mini demo, saturation 50%, no padding -->
-             <div id="hsl-demo">
-                <div class="swatch" style="background:hsl(0, 60%, 50%);">0</div>
-                <div class="swatch" style="background:hsl(60, 60%, 50%);">60</div>
-                <div class="swatch" style="background:hsl(120, 60%, 50%);">120</div>
-                <div class="swatch" style="background:hsl(180, 60%, 50%);">180</div>
-                <div class="swatch" style="background:hsl(240, 60%, 50%);">240</div>
-                <div class="swatch" style="background:hsl(300, 60%, 50%);">300</div>
-            </div>
-
-            <p> It is easier to create a color palette with HSL, while RGB is more common for precise color matching. Named colors are convenient for quick styling but less flexible.</p>
-            <pre><code class="language-css">/* Named color */
-color: tomato;
-
-/* HEX */
-color: #ff6600;
-color: #f60;        /* shorthand */
-
-/* RGB / RGBA */
-color: rgb(255, 102, 0);
-color: rgba(255, 102, 0, 0.6);
-
-/* HSL / HSLA */
-color: hsl(24, 100%, 50%);
-color: hsla(24, 100%, 50%, 0.6);</code></pre>
-
-            <div class="rendered">
-                <div style="background:#ddd;padding:1em;">
-                <div class="swatch" style="background:tomato;"></div>
-                <div class="swatch" style="background:#ff6600;"></div>
-                <div class="swatch" style="background:rgb(255,102,0);"></div>
-                <div class="swatch" style="background:rgba(255,102,0,0.5);"></div>
-                <div class="swatch" style="background:hsl(24,100%,50%);"></div>
-                <div class="swatch" style="background:hsla(24,100%,50%,0.3);"></div>
-                <p style="clear:both; margin-top:0.5rem;">
-                    <span style="background:tomato; padding:0.2rem 0.6rem;">tomato</span>
-                    <span style="background:#ff6600; padding:0.2rem 0.6rem;">#ff6600</span>
-                    <span style="background:rgb(255,102,0); padding:0.2rem 0.6rem;">rgb</span>
-                    <span style="background:rgba(255,102,0,0.5); padding:0.2rem 0.6rem;">rgba 50%</span>
-                    <span style="background:hsl(24,100%,50%); padding:0.2rem 0.6rem;">hsl</span>
-                    <span style="background:hsla(24,100%,50%,0.3); padding:0.2rem 0.6rem;">hsla 30%</span>
-                </p>
-                </div>
-            </div>
 
         </section>
 
-                <section id="selectors">
-            <h2>6. CSS Selectors</h2>
-            <p>Selectors define <em>which</em> elements a CSS rule applies to. Today we are only going to use the most basic selectors:</p>
-            <pre><code class="language-css">/* Type selector — targets all &lt;p&gt; elements */
-p { color: #2c3e50; }
-
-/* Class selector — targets elements with class="highlight" */
-.highlight { background: #ffeaa7; }
-
-/* ID selector — targets the element with id="special" */
-#special { border-color: #e74c3c; }</code></pre>
-            <div class="rendered">
-                <p>This is a plain paragraph (type selector).</p>
-                <p class="selector-demo" style="background:#ffeaa7;">This has <code>class="highlight"</code> applied.</p>
-                <p class="selector-demo" style="border:2px solid #e74c3c;" id="special">This has <code>id="special"</code> applied.</p>
-            </div>
-
-        </section>
+        <p style="text-align:right;"><a href="#top">Back to top ↑</a></p>
 
     </main>
+
+    </div>
 
     <footer>
         <small>Web Programming WiSe 2026, Qianxun Chen</small>

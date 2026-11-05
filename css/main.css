@@ -40,10 +40,14 @@ p {
 
 a {
     text-decoration: underline;
-    color:inherit;
+    color:inherit; 
 }
 a:hover{
    text-decoration: none;
+   cursor: pointer;
+}
+p a {
+    color: orange !important;
 }
 
 pre {
@@ -74,6 +78,10 @@ form label {
     margin: 0.5rem 0 0.2rem;
 }
 
+summary {
+    cursor: pointer;
+}
+
 
 .example {
     margin: 0.4rem 0 1.2rem;
@@ -100,4 +108,87 @@ footer {
 
 .hide {
     visibility:hidden;
+}
+
+/* ========== Sidebar navigation ========== */
+html {
+    scroll-behavior: smooth;
+}
+
+.layout {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    max-width: 1150px;
+    margin: 1rem auto;
+    padding: 0 1rem;
+}
+
+.sidebar {
+    position: sticky;
+    top: 1rem;
+    flex: 0 0 190px;
+    max-height: calc(100vh - 2rem);
+    overflow-y: auto;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .08);
+    padding: 0.8rem 0.9rem;
+    font-size: 0.9rem;
+}
+
+.sidebar h3 {
+    margin: 0.8rem 0 0.2rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #555;
+}
+
+.sidebar h3:first-child {
+    margin-top: 0;
+}
+
+.sidebar ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar li {
+    margin: 0.15rem 0;
+}
+
+.sidebar a {
+    display: block;
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    text-decoration: none;
+    color: black;
+}
+
+.sidebar a:hover {
+    background: #ddd;
+    text-decoration: none;
+}
+
+/* content sits next to the sidebar */
+.layout main {
+    flex: 1;
+    min-width: 0;
+    max-width: none;
+    margin: 0;
+}
+
+@media (max-width: 860px) {
+    .layout {
+        flex-direction: column;
+        padding: 0 0.5rem;
+    }
+
+    .sidebar {
+        position: static;
+        width: 100%;
+        max-height: none;
+    }
 }
