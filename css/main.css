@@ -28,6 +28,11 @@ section + section {
     padding-top: 1rem;
     border-top: 1px solid grey;
 }
+
+h1 {
+    font-family: Optima, Candara, 'Noto Sans', sans-serif;
+}
+
 h2 {
     color: #333;
     font-size: 1.3rem;
@@ -81,7 +86,11 @@ form label {
 summary {
     cursor: pointer;
 }
-
+footer {
+    text-align: center;
+    margin: 2rem auto 1rem;
+    color: #6a7480;
+}
 
 .example {
     margin: 0.4rem 0 1.2rem;
@@ -93,19 +102,13 @@ summary {
     border-radius: 4px;
     margin:1em 0em;
 }
-footer {
-    text-align: center;
-    margin: 2rem auto 1rem;
-    color: #6a7480;
-}
 .exercise {
-    background-color: lightgrey;
-    border-radius: 8px;
-    margin:0 1em;
-    border:0;
-    padding: 0.5em 1em 1.5em 1em; 
+    background-color:#c0392b;
+    padding:1em;
+    color:#eee;
+    margin: 1em 0em;
+    border-radius: 4px;
 }
-
 .hide {
     visibility:hidden;
 }
@@ -184,6 +187,20 @@ html {
     min-width: 0;
     max-width: none;
     margin: 0;
+}
+
+/* Clearfix technique */
+.clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* define mondrian colors */
+:root {
+    --mondrian-red: #dd0100;
+    --mondrian-yellow: #fac901;
+    --mondrian-blue: #225095;
 }
 
 @media (max-width: 860px) {
