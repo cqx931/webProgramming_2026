@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CSS Flexbox layout demo for week 3">
+    <title>Flexbox Layout Demo</title>
+    <link href="../css/main.css" rel="stylesheet" />
+        <!-- Prism.js for syntax highlighting for code tags -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <style>
+        /* Mondrian colors */
+        :root {
+            --mondrian-red: #dd0100;
+            --mondrian-yellow: #fac901;
+            --mondrian-blue: #225095;
+        }
+
+        h3 {
+            margin-top: 1.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .demo-container {
+            background: #fefefe;
+            border: 1px dashed #b6c8eb;
+            border-radius: 4px;
+            margin: 1rem 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .demo-item {
+            padding: 1rem;
+            text-align: center;
+            font-weight: 600;
+            min-width: 50px;
+            box-sizing: border-box;
+        }
+
+        /* Mondrian color rotation */
+        .demo-item:nth-child(3n+1) {
+            background: var(--mondrian-yellow);
+            border: 1px solid #e0c700;
+            color: #333;
+        }
+        .demo-item:nth-child(3n) {
+            background: var(--mondrian-red);
+            border: 1px solid #c00000;
+            color: white;
+        }
+        .demo-item:nth-child(3n+2) {
+            background: var(--mondrian-blue);
+            border: 1px solid #1a3d7a;
+            color: white;
+        }
+
+        /* 12-column span utilities */
+        .span-12 { flex: 0 0 calc(100% - 0rem); }
+        .span-8 { flex: 0 0 calc((100% / 12 * 8) - 0.583rem); }
+        .span-6 { flex: 0 0 calc(50% - 0.5rem); }
+        .span-4 { flex: 0 0 calc(33.333% - 0.666rem); }
+        .span-3 { flex: 0 0 calc(25% - 0.75rem); }
+        .span-2 { flex: 0 0 calc(16.666% - 0.833rem); }
+
+        /* Direction demos */
+        .flex-row { flex-direction: row; }
+        .flex-row-reverse { flex-direction: row-reverse; }
+        .flex-column { flex-direction: column; }
+        .flex-column-reverse { flex-direction: column-reverse; }
+
+        /* Justify content demos */
+        .justify-start { justify-content: flex-start; }
+        .justify-center { justify-content: center; }
+        .justify-end { justify-content: flex-end; }
+        .justify-between { justify-content: space-between; }
+        .justify-around { justify-content: space-around; }
+        .justify-evenly { justify-content: space-evenly; }
+
+        /* Align items demos */
+        .align-start { align-items: flex-start; height: 120px; }
+        .align-center { align-items: center; height: 120px; }
+        .align-end { align-items: flex-end; height: 120px; }
+        .align-stretch { align-items: stretch; height: 120px; }
+
+        /* Grid system override - grey color */
+        #grid-system .demo-item,
+        #grid-system .demo-item:nth-child(3n+1),
+        #grid-system .demo-item:nth-child(3n+2),
+        #grid-system .demo-item:nth-child(3n) {
+            background: #d9d9d9;
+            border: 1px solid #999;
+            color: #333;
+        }
+
+        .grid-container {
+            background: #fefefe;
+            border: 1px dashed #b6c8eb;
+            padding: 0.75rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .grid-label {
+            width: 100%;
+            padding: 0.5rem 0 0 0;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #666;
+            border-top: 1px solid #ccc;
+            margin-top: 1rem;
+        }
+
+        .grid-label:first-child {
+            border-top: none;
+            margin-top: 0;
+            padding-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Flexbox Layout</h1>
+    </header>
+
+    <div class="layout">
+
+        <aside class="sidebar" aria-label="Table of contents">
+            <ul>
+                <li><a href="../index.html">← Back to Home</a></li>
+                <li><a href="index.html">← Session 3</a></li>
+            </ul>
+            <h3>Flexbox</h3>
+            <ul>
+                <li><a href="#display-flex">Flex Container</a></li>
+                <li><a href="#flex-direction">Flex Direction</a></li>
+                <li><a href="#justify-content">Justify Content</a></li>
+                <li><a href="#align-items">Align Items</a></li>
+                <li><a href="#gap">Gap</a></li>
+                <li><a href="#flex-wrap">Flex Wrap</a></li>
+                <li><a href="#align-content">Align Content</a></li>
+                <li><a href="#flex-property">Flex Property</a></li>
+            </ul>
+            <h3>Other Materials</h3>
+            <ul>
+                <li><a href="https://codepen.io/editor/cqx931/pen/01a1efa0-560a-7fb3-9284-91ee33afce0c" target="_blank">CodePen</a></li>
+                <li><a href="https://flexboxfroggy.com/" target="_blank">Flexbox Froggy</a></li>
+                <li><a href="template_flexbox.html" target="_blank">Template</a></li>
+            </ul>
+        </aside>
+
+        <main>
+        <p>Flexbox is a powerful CSS layout module that provides an efficient way to arrange items within a container, even when their size is unknown or dynamic. 
+            It allows for flexible and responsive designs without the need for floats or positioning.
+        You can open the following <a href="https://codepen.io/editor/cqx931/pen/01a1efa0-560a-7fb3-9284-91ee33afce0c" target="_blank">CodePen</a> to follow along and test the rules.
+        </p>
+
+        <section id="display-flex">
+            <h2>Flex Container</h2>
+            <p>The <code>display: flex;</code> property turns a container into a flex container, enabling automatic flexbox layout for its direct children.</p>
+            <pre><code class="language-css">.container {
+    display: flex;
+    gap: 1rem;
+}</code></pre>
+            <div class="demo-container">
+                <div class="demo-item">Item 1</div>
+                <div class="demo-item">Item 2</div>
+                <div class="demo-item">Item 3</div>
+            </div>
+</section>
+
+        <section id="flex-direction">
+            <h2>Flex Direction</h2>
+            <p>
+            Flexbox operates in a two-axis system: a main axis and a cross axis. The main axis defines the direction in which your flex items are placed in the flex container. 
+            The <code>flex-direction</code> property defines the main axis along which flex items are arranged.</p>
+
+            <h3>flex-direction: row (default)</h3>
+            <pre><code class="language-css">.container { flex-direction: row; }</code></pre>
+            <div class="demo-container flex-row">
+                <div class="demo-item">1</div>
+                <div class="demo-item">2</div>
+                <div class="demo-item">3</div>
+            </div>
+
+            <h3>flex-direction: row-reverse</h3>
+            <pre><code class="language-css">.container { flex-direction: row-reverse; }</code></pre>
+            <div class="demo-container flex-row-reverse">
+                <div class="demo-item">1</div>
+                <div class="demo-item">2</div>
+                <div class="demo-item">3</div>
+            </div>
+
+            <h3>flex-direction: column</h3>
+            <pre><code class="language-css">.container { flex-direction: column; }</code></pre>
+            <div class="demo-container flex-column">
+                <div class="demo-item">1</div>
+                <div class="demo-item">2</div>
+                <div class="demo-item">3</div>
+            </div>
+
+            <h3>flex-direction: column-reverse</h3>
+            <pre><code class="language-css">.container { flex-direction: column-reverse; }</code></pre>
+            <div class="demo-container flex-column-reverse">
+                <div class="demo-item">1</div>
+                <div class="demo-item">2</div>
+                <div class="demo-item">3</div>
+            </div>  
+            <p>Because the main axis changes with different <code>flex-direction</code> values, properties like <code>justify-content</code> and <code>align-items</code> will also behave differently. For example, <code>justify-content: center;</code> will center items horizontally in a row layout but vertically in a column layout.
+            <br><img src="../images/4-flexbox-axes.jpg.avif"  style="width:300px; max-width:600px; margin-top:1rem;">
+        </p>
+            
+        </section>
+
+        <section id="justify-content">
+            <h2>Justify Content</h2>
+            <p>The <code>justify-content</code> property aligns items along the main axis (horizontal in row direction).
+            Try to resize your browser window and see how the boxes move and behave in different modes.</p>
+
+            <h3>[Default] justify-content: flex-start</h3>
+            <div class="demo-container justify-start" style="gap: 0.5rem;">
+                <div class="demo-item" style="flex: 0 0 80px;">1</div>
+                <div class="demo-item" style="flex: 0 0 80px;">2</div>
+                <div class="demo-item" style="flex: 0 0 80px;">3</div>
+            </div>
+
+            <h3>justify-content: flex-end</h3>
+            <div class="demo-container justify-end" style="gap: 0.5rem;">
+                <div class="demo-item" style="flex: 0 0 80px;">1</div>
+                <div class="demo-item" style="flex: 0 0 80px;">2</div>
+                <div class="demo-item" style="flex: 0 0 80px;">3</div>
+            </div>
+
+            <h3>justify-content: center</h3>
+            <div class="demo-container justify-center" style="gap: 0.5rem;">
+                <div class="demo-item" style="flex: 0 0 80px;">1</div>
+                <div class="demo-item" style="flex: 0 0 80px;">2</div>
+                <div class="demo-item" style="flex: 0 0 80px;">3</div>
+            </div>
+
+            <h3>justify-content: space-between</h3><p>It distributes the elements from left to right, and the elements touch the edges.</p>
+            <div class="demo-container justify-between" style="gap: 0.5rem;">
+                <div class="demo-item" style="flex: 0 0 80px;">1</div>
+                <div class="demo-item" style="flex: 0 0 80px;">2</div>
+                <div class="demo-item" style="flex: 0 0 80px;">3</div>
+            </div>
+
+            <h3>justify-content: space-around</h3>
+            <p>It distributes the elements from left to right, but the elements don't touch the edges. However, the gap between the elements and the gap between the first item and the left edge are not the same.</p>
+            <div class="demo-container justify-around" style="gap: 0.5rem;">
+                <div class="demo-item" style="flex: 0 0 80px;">1</div>
+                <div class="demo-item" style="flex: 0 0 80px;">2</div>
+                <div class="demo-item" style="flex: 0 0 80px;">3</div>
+            </div>
+                <h3>justify-content: space-evenly</h3>
+            <p>If you want even spacing among all elements, use space-evenly.</p>
+            <div class="demo-container justify-evenly" style="gap: 0.5rem;">
+                <div class="demo-item" style="flex: 0 0 80px;">1</div>
+                <div class="demo-item" style="flex: 0 0 80px;">2</div>
+                <div class="demo-item" style="flex: 0 0 80px;">3</div>
+            </div>
+        </section>
+
+        <section id="align-items">
+            <h2>Align Items</h2>
+            <p>The <code>align-items</code> property aligns items along the cross axis (vertical in row direction). Common values are <code>flex-start, flex-end, center, stretch</code>, and it works on the other axis.</p>
+
+            <h3>[Default] align-items: flex-start</h3>
+            <div class="demo-container align-start">
+                <div class="demo-item" style="height: 40px;">Short</div>
+                <div class="demo-item" style="height: 80px;">Taller</div>
+                <div class="demo-item" style="height: 60px;">Medium</div>
+            </div>
+
+            <h3>align-items: flex-end</h3>
+            <div class="demo-container align-end">
+                <div class="demo-item" style="height: 40px;">Short</div>
+                <div class="demo-item" style="height: 80px;">Taller</div>
+                <div class="demo-item" style="height: 60px;">Medium</div>
+            </div>
+
+            <h3>align-items: center</h3>
+            <div class="demo-container align-center">
+                <div class="demo-item" style="height: 40px;">Short</div>
+                <div class="demo-item" style="height: 80px;">Taller</div>
+                <div class="demo-item" style="height: 60px;">Medium</div>
+            </div>
+
+            <h3>align-items: stretch</h3>
+            <p>One value that comes in handy here is to use stretch to fill the rest of the space.</p>
+            <div class="demo-container align-stretch">
+                <div class="demo-item">Stretched</div>
+                <div class="demo-item">Stretched</div>
+                <div class="demo-item">Stretched</div>
+            </div>
+        </section>
+
+        <section id="gap">
+            <h2>Gap</h2>
+            <p>The <code>gap</code> property defines spacing between flex items. It's cleaner than margin-based approaches. One can use one value or two values for different row-gap & col-gap.</p>
+
+            <pre><code class="language-css">.container { gap: 10px 20px; /*row col*/}</code></pre>
+            <div class="demo-container" style="width:500px; flex-wrap:wrap; gap: 10px 20px;">
+                <div class="demo-item" style="width: 30%;">Item</div>
+                <div class="demo-item" style="width: 30%;">Item</div>
+                <div class="demo-item" style="width: 30%;">Item</div>
+                <div class="demo-item" style="width: 30%;">Item</div>
+                <div class="demo-item" style="width: 30%;">Item</div>
+            </div>
+        </section>
+
+        <section id="flex-wrap">
+            <h2>Flex Wrap</h2>
+            <p>The <code>flex-wrap</code> property controls whether flex items wrap to a new line when they run out of space.
+            You can use it to create responsive layouts that adapt to different screen sizes. Try the demo below by 
+            resizing your browser window.</p>
+
+            <h3>[Default] flex-wrap: nowrap</h3>
+            <pre><code class="language-css">.container { flex-wrap: nowrap; }</code></pre>
+            <div class="demo-container" style="flex-wrap: nowrap; overflow-x: auto;max-width:600px"">
+                <div class="demo-item" style="flex: 0 0 150px;">Item 1</div>
+                <div class="demo-item" style="flex: 0 0 150px;">Item 2</div>
+                <div class="demo-item" style="flex: 0 0 150px;">Item 3</div>
+                <div class="demo-item" style="flex: 0 0 150px;">Item 4</div>
+            </div>
+            
+
+            <h3>flex-wrap: wrap</h3>
+            <pre><code class="language-css">.container { flex-wrap: wrap; }</code></pre>
+            <div class="demo-container" style="flex-wrap: wrap;max-width:600px">
+                <div class="demo-item" style="flex: 0 0 150px;">Item 1</div>
+                <div class="demo-item" style="flex: 0 0 150px;">Item 2</div>
+                <div class="demo-item" style="flex: 0 0 150px;">Item 3</div>
+                <div class="demo-item" style="flex: 0 0 150px;">Item 4</div>
+            </div>
+
+            <h3>flex-wrap: wrap-reverse</h3>
+            <p>Same as <code>wrap</code>, but the lines are laid out in the opposite direction: the first line starts at the bottom and new lines are added above it. Note that the items within each line keep their normal order.</p>
+            <pre><code class="language-css">.container { flex-wrap: wrap-reverse; }</code></pre>
+            <div class="demo-container" style="flex-wrap: wrap-reverse; max-width: 400px;">
+                <div class="demo-item" style="flex: 0 0 150px;">Item 1</div>
+                <div class="demo-item" style="flex: 0 0 150px;">Item 2</div>
+                <div class="demo-item" style="flex: 0 0 150px;">Item 3</div>
+                <div class="demo-item" style="flex: 0 0 150px;">Item 4</div>
+                <div class="demo-item" style="flex: 0 0 150px;">Item 5</div>
+                <div class="demo-item" style="flex: 0 0 150px;">Item 6</div>
+            </div>
+
+            <!-- <h3>balance</h3>
+            <p><code>flex-wrap: balance;</code> tries to give each line roughly the same number of items, instead of filling up the first line completely. Compare with the <code>wrap</code> demo above: there, the last line only holds one item.</p>
+            <pre><code class="language-css">.container { flex-wrap: balance; }</code></pre>
+            <div class="demo-container" style="flex-wrap: balance; max-width: 500px;">
+                <div class="demo-item" style="flex: 0 0 150px;">Item 1</div>
+                <div class="demo-item" style="flex: 0 0 150px;">Item 2</div>
+                <div class="demo-item" style="flex: 0 0 150px;">Item 3</div>
+                <div class="demo-item" style="flex: 0 0 150px;">Item 4</div>
+                <div class="demo-item" style="flex: 0 0 150px;">Item 5</div>
+                <div class="demo-item" style="flex: 0 0 150px;">Item 6</div>
+                <div class="demo-item" style="flex: 0 0 150px;">Item 7</div>
+            </div>
+            <p><b>Note:</b> <code>balance</code> is a relatively new value (available in all major browsers since 2025). If the demo above looks like <code>wrap</code>, your browser does not support it yet.</p> -->
+
+        </section>
+
+        <section id="align-content">
+            <h2>Align Content</h2>
+            <p>The <code>align-content</code> property only works when there are items in multiple lines of layout (e.g., when using <code>flex-wrap: wrap;</code>). It shares similar values as <code>justify-content</code>, such as <code>flex-start, flex-end, center, space-between, space-around, space-evenly</code>.</p>
+            <h3>[Default] align-content: normal/stretch</h3>
+            <p>By default, <code>align-content</code> is <code>normal</code>, which behaves like <code>stretch</code>: the flex lines grow to fill the container's height. The items inside each line stretch along with their line.</p>
+            <div class="demo-container" style="flex-wrap: wrap; height: 200px; max-width:400px;">
+                <div class="demo-item" style="flex: 0 0 80px;">1</div>
+                <div class="demo-item" style="flex: 0 0 80px;">2</div>
+                <div class="demo-item" style="flex: 0 0 80px;">3</div>
+                <div class="demo-item" style="flex: 0 0 80px;">4</div>
+                <div class="demo-item" style="flex: 0 0 80px;">5</div>
+                <div class="demo-item" style="flex: 0 0 80px;">6</div>
+            </div>
+
+            <h3>align-content: space-between</h3>
+            <div class="demo-container" style="flex-wrap: wrap; align-content: space-between; height: 200px; max-width:400px;">
+                <div class="demo-item" style="flex: 0 0 80px;">1</div>
+                <div class="demo-item" style="flex: 0 0 80px;">2</div>
+                <div class="demo-item" style="flex: 0 0 80px;">3</div>
+                <div class="demo-item" style="flex: 0 0 80px;">4</div>
+                <div class="demo-item" style="flex: 0 0 80px;">5</div>
+                <div class="demo-item" style="flex: 0 0 80px;">6</div>
+            </div>
+
+            <h3>align-content: center</h3>
+            <div class="demo-container" style="flex-wrap: wrap; align-content: center; height: 200px; max-width:400px;">
+                <div class="demo-item" style="flex: 0 0 80px;">1</div>
+                <div class="demo-item" style="flex: 0 0 80px;">2</div>
+                <div class="demo-item" style="flex: 0 0 80px;">3</div>
+                <div class="demo-item" style="flex: 0 0 80px;">4</div>
+                <div class="demo-item" style="flex: 0 0 80px;">5</div>
+                <div class="demo-item" style="flex: 0 0 80px;">6</div>
+            </div>
+
+        </section>
+
+        <section id="flex-property">
+            <h2>Flex Property [Items]</h2>
+            <p>The <code>flex</code> property is shorthand for <code>flex-grow</code>, <code>flex-shrink</code>, and <code>flex-basis</code>. It controls how items grow or shrink dynamically. You can specify very detailed responsive behaviour with this value. Here we will first focus on static layout examples.</p>
+            <pre><code class="language-css">.item {
+    flex: 1; /* shorthand for flex-grow: 1; flex-shrink: 1; flex-basis: auto; */
+}</code></pre>
+
+<p>
+    If you want to create two columns with a 2:1 ratio, you can set the first item to <code>flex: 2;</code> and the second item to <code>flex: 1;</code>. This will make the first item take up twice as much space as the second item within the flex container.
+</p>
+<pre><code class="language-css">.itemA {
+    flex: 2; /* takes up twice as much space as item2 */
+}
+.itemB {
+    flex: 1; /* takes up half the space of item1 */
+}</code></pre>
+<div class="demo-container">
+    <div class="demo-item" style="flex: 2;">Item A (flex: 2)</div>
+    <div class="demo-item" style="flex: 1;">Item B (flex: 1)</div>
+</div>
+
+<p>
+    If you have a fixed width item and you want the remaining space to be taken up by another item, you can set the fixed width item with <code>flex: 0 0 200px;</code> and the other item with <code>flex: 1;</code>. This will make the first item take up exactly 200px of space, while the second item will grow to fill the remaining space in the flex container.
+</p>
+<pre><code class="language-css">.itemA {
+    flex: 0 0 200px; /* fixed width of 200px, no grow, no shrink */
+}
+.itemB {
+    flex: 1; /* takes up remaining space */
+}</code></pre>
+<div class="demo-container">
+    <div class="demo-item" style="flex: 0 0 200px;">Item A (flex: 0 0 200px)</div>
+    <div class="demo-item" style="flex: 1;">Item B (flex: 1)</div>
+</div>
+
+<p>
+    We can also combine the two examples above to create a three-column layout where the first column has a fixed width of 200px and the remaining space is split between the second and third columns with a 2:1 ratio. We can achieve this by setting the first item to <code>flex: 0 0 200px;</code>, the second item to <code>flex: 2;</code>, and the third item to <code>flex: 1;</code>.
+</p>
+<pre><code class="language-css">.itemA {
+    flex: 0 0 200px; /* fixed width of 200px, no grow, no shrink */
+}
+/* item B+C will take up remaining space with the ratio of 2:1 */
+.itemB {
+    flex: 2; 
+}
+.itemC {
+    flex: 1;
+}
+</code></pre>
+<div class="demo-container">
+    <div class="demo-item" style="flex: 0 0 200px;">Item A (flex: 0 0 200px)</div>
+    <div class="demo-item" style="flex: 2;">Item B (flex: 2)</div>
+    <div class="demo-item" style="flex: 1;">Item C (flex: 1)</div>
+</div>
+
+</section>
+
+<section >
+    <p>Of course we didn't cover all the details of flexbox in this session. You can find more examples of real-life flexbox usage for common web layout in the template file for this week <a href="template_flexbox.html" target="_blank">here</a>.</p>
+    <p>
+    And check out <a href="https://flexboxfroggy.com/" target="_blank">Flexbox Froggy</a> to practice basic flexbox syntax!</p>
+</section>
+
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Course material for week 3 of Web Programming SoSe 2026">
+    <meta name="keywords" content="CSS, Web Programming">
+    <meta name="author" content="Qianxun Chen">
+
+    <title>CSS Layout</title>
+
+    <link href="../css/main.css" rel="stylesheet" />
+    <!-- Prism.js for syntax highlighting for code tags -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>Session 3: CSS Layout</h1>
+    </header>
+
+    <div class="layout">
+
+        <aside class="sidebar" aria-label="Table of contents">
+            <ul>
+                <li><a href="../index.html">← Back to Home</a></li>
+            </ul>
+            <h3>Contents</h3>
+            <ul>
+                <li><a href="#flow">Flow Layout</a></li>
+                <!-- overriding normal flow -->
+                <li><a href="#positioning">Position</a></li>
+                <li><a href="#z-index">Z-Index</a></li>
+                <li><a href="#float">Float</a></li>
+                <li><a href="#flexbox">Flexbox</a></li>
+                <li><a href="#grid">Grid</a></li>
+                <li><a href="#center">How to Center a Div</a></li>
+                <li><a href="#images">Display Images</a></li>
+            </ul>
+        </aside>
+
+        <main>
+
+            <section id="flow">
+
+                <h2>Flow Layout: The Default</h2>
+                <p>By default, elements are laid out following the normal flow of the document.
+                    Block-level elements stack vertically, while inline elements flow horizontally within their
+                    containing block.
+                    This default behavior can be overridden by CSS properties like <code>display</code>,
+                    <code>position</code>, <code>float</code> to create more complicated layouts.
+                    <br>
+                </p>
+                <iframe style="width:100%; height:500px; border:none;"
+                    src="https://47f8bd82a118ab01f991abfdd7e6f03fc0e4af2f.mdnplay.dev/en-US/docs/Learn_web_development/Core/CSS_layout/Introduction/runner.html?uuid=47f8bd82a118ab01f991abfdd7e6f03fc0e4af2f&amp;state=bVPBbtswDP0VwkCBFvXitGuAwc16yK2HYcddcpEl1lYqS4Il18mK%2FvtIyVmWdCfbNPneIx%2F5XnSxN0VdrLu7p40IWoJycuzRRngxblpXFN%2FarV17egA8g%2BhBQJMyG%2BPkKxh8QwNokIsW8OMAQu2EZIT%2FJAQIOoKzYHFiQKMtBmiQuKDHBRFV%2Fl%2FCzQEUvojRRJgQghcW7pbLK3AvEDuESavY8YcbB%2FBiYNaZqQRhFRdRFESAKIxhRHrlZNlpo0A6G5PsnxSKjnJmSK7tULddBD0X5FS4JR6ltG3hluEaNygcclWVKz538SurCEgSRUQFzSFh9mJotQ0L2KAUY0DuJMeIzhjhA%2FGUcxMMdIbAAwj6d6pyFo9jmEFLsI4scLH7rOfZ8txPnqx5sE9GvyKBcr8W11WKpUHk35d%2FspEMl4SIHpObIIyj4Uyap3jchIj7SHoUkiydrKNxEBwhSeR1OEIcd4IcecOBV5AnrS%2F0Tjp7mYVNg%2FCEER1tJq1VVkEs3oWgG4NwfdZZclJoy8Cs62ZuqGREN8BuDBFal1RdQtJIS%2BhH2cEJUveixSSJbqdOsnTf8pP8GuT3Ld1Y9KGuql7ZRUtzGZuFdlXoyFT1RYSAMVQJJVS4F7039MJDXOx8uy0ykjCRkILV3mNkq6Uha7cFVE9He4uykCHQMTdOHeCd69Ja1rBaLv3%2BkQN5OWpYghijo9AHr4XP2Y2Qr%2B3gRqtqGNrm%2Bn61gm8PdHAPUMHX5dXN42nja7j3ewjOaHWRm7PmI6kpckE9BxJxOuhP3FOnI55x3f3lagwl5nLqd8ft0pPWp0d6NXx%2Fxccf"
+                    sandbox="allow-scripts allow-same-origin allow-forms allow-modals allow-downloads allow-fullscreen allow-orientation-lock"></iframe>
+
+            </section>
+
+            <section id="positioning">
+                <h2>Position</h2>
+                <p>We use <code>position</code> to take an element out of the normal flow of a document.
+                    It has various positioning schemes to control how elements are placed on the page.</p>
+                <ul>
+                    <li><code>static</code>: The default flow of the document.</li>
+                    <li><b><code>relative</code></b>: Positioned relative to its normal position. Ex: absolute parent
+                    </li>
+                    <li><b><code>absolute</code></b>: Positioned relative to the nearest positioned ancestor.</li>
+                    <li><b><code>fixed</code></b>: Positioned relative to the viewport, stays in place during scrolling.
+                        Ex: pop-up windows</li>
+                    <li><code>sticky</code>: Toggles between relative and fixed based on scroll position.</li>
+                </ul>
+
+                <p>It overrides not only the normal flow, but also other general layout frameworks such as Flexbox or
+                    Grid.
+                    In this way we can design the general layout of a page using Flexbox, but it is still possible to
+                    change the <code>position</code> property
+                    for a specific element inside this layout.
+                </p>
+
+                <h3>Position: relative</h3>
+
+                <p>An element with <code>position: relative;</code> is positioned relative to its normal position in the
+                    document flow.
+
+                    Settings like the <code>top</code>, <code>right</code>, <code>bottom</code> and <code>left</code>
+                    properties will cause the element to be adjusted away from its normal position. These properties
+                    only
+                    work on positioned elements (elements with position set to relative, absolute, fixed, or sticky).
+                </p>
+
+                <pre><code class="language-css">/* Static: default flow */
+.element {
+    position: static;
+    top:10px; /* has no effect */
+    left:20px; /* has no effect */
+}       
+/* Relative: offset from normal position */
+#relative {
+    position: relative;
+    top: 10px; /* moves down 10px */
+    left: 20px; /* moves right 20px */
+}
+          </code></pre>
+                <div class="rendered" style="position:relative; width:300px; height:100px; background:#ddd;">
+                    <div style="background-color:green;top:10px; left:20px; color:white; padding:5px; width:60px;">
+                        Static
+                    </div>
+                    <div
+                        style="position:relative; top:10px; left:20px; background:red; color:white; padding:5px; width:60px;">
+                        Relative</div>
+                </div>
+
+                <h3>Position: absolute</h3>
+
+                <p>An element with <code>position: absolute;</code> is positioned relative to the nearest ancestor with
+                    a
+                    set
+                    position (any position other than static).
+                    However, if an absolute positioned element has no positioned ancestors, it uses the document body,
+                    and
+                    moves along with page scrolling.
+                </p>
+                <p>Most of the time we use it together with <code>position: relative;</code> for the reference div in
+                    relation to an element by itself while keeping the parent element in the normal flow.</p>
+                <p>Absolute positioning removes the element from the normal document flow, so it does not affect the
+                    position of other elements. Notice that its parent is also not affected by it at all. </p>
+
+                <pre><code class="language-css">/* Absolute: positioned relative to nearest positioned ancestor */
+div.relative {
+  position: relative;
+  width: 400px;
+  height: 200px; # if we remove the height from parent div, the parent doesn't adjust its height to the absolute child div 
+  padding: 5px;
+  border: 3px solid green;
+}
+
+div.absolute {
+  position: absolute;
+  top: 80px;
+  right: 5px;
+  width: 200px;
+  height: 100px;
+  padding: 5px;
+  border: 3px solid red;
+}
+</code></pre>
+                <div class="rendered">
+                    <div class="relative"
+                        style="position:relative; width:400px; height:200px; padding: 5px; border:3px solid green;">
+                        This div element has position: relative
+                        <div class="absolute"
+                            style="position:absolute; top:80px; right:5px; padding: 5px; width:200px; height:100px; border:3px solid red;">
+                            This div element has position: absolute
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Position: fixed</h3>
+                <p>An element with <code>position: fixed;</code> is positioned relative to the viewport, which means it
+                    always stays in the same place even if the page is scrolled.
+                    Fixed positioning removes the element from the normal document flow, so it does not affect the
+                    position
+                    of other elements and other elements will not affect its position.</p>
+                <pre><code class="language-css">/* Fixed: positioned relative to the viewport */
+div.fixed {
+  position: fixed;
+  background:#eee; 
+  top: 500px;
+  left: 10px;
+  width: 150px;
+  height: 50px;
+  padding: 5px;
+  border: 3px solid blue;
+}</code></pre>
+
+                <div class="rendered">
+                    <div class="fixed"
+                        style="position:fixed; background:#eee; top:500px; left:10px; width:150px; height:50px; padding: 5px; border:3px solid blue;">
+                        This div element has position: fixed
+                    </div>
+                </div>
+
+                <h3>Position: sticky</h3>
+                <p><code>position: sticky;</code> is relatively new to positions (does not work for very old browsers)
+                    and
+                    it
+                    has a cute sticky effect.
+                    It behaves like <code>relative</code> until it reaches a defined scroll position, then it becomes
+                    fixed
+                    until it is out of the viewport.
+                </p>
+                <pre><code class="language-css">/* Sticky: toggles between relative and fixed based on scroll position */
+div.sticky {
+    position: sticky;
+    top: 0; /* Sticks to the top of the viewport when you reach its scroll position */      
+    background: #f39c12;
+    padding: 5px;
+    border: 3px solid orange;
+}</code></pre>
+                <div class="rendered" style="height: 200px; padding: 5px; border:3px solid orange;">
+                    <div class="sticky"
+                        style="position:sticky; top:0; background:#f39c12; padding: 5px; border:3px solid orange;">
+                        This div element has position: sticky
+                    </div>
+                    <p style="margin-top:0.5rem;">Scroll down to see the sticky behavior.</p>
+                </div>
+
+
+                <p>Check <a target="_blank"
+                        href="https://codepen.io/editor/cqx931/pen/019efacd-b133-7eeb-9bf6-3cca153c8c7b">this
+                        CodePen</a> for a demo of different position values.</p>
+
+            </section>
+
+            <section id="z-index">
+                <h2>Z-Index</h2>
+                <p>Once we start to take elements out of the normal flow, there is a chance that they might overlap
+                    with
+                    each other.
+                    The <code>z-index</code> property comes in handy when that happens.
+                    Elements with a higher <code>z-index</code> will appear in front of elements with a lower
+                    <code>z-index</code>.
+                    <br>
+                    If two positioned elements overlap without a z-index specified, the element positioned last in the
+                    HTML
+                    code will be shown on top.
+                </p>
+                <pre><code class="language-css">/* Z-Index: controls stacking order */
+div.z-index-demo {
+    position: absolute; /* z-index only works on positioned elements */
+    z-index: 1; /* default value is auto */
+    opacity: 0.8; /* for better visibility of overlapping elements */
+    width:200px;
+    height:150px;
+    color:white;
+    padding:5px;
+    margin:40px;
+    left:0;
+    top:0;
+}
+
+div.z-index-demo.front { 
+    z-index: 2; /* overrides z-index of 1 */
+    left:40px;
+    top:40px;
+} /* appears in front */
+
+div.z-index-demo.back { 
+    z-index: 0; /*  overrides z-index of 1 */
+    left:-40px;
+    top:-40px;
+} /* appears behind */
+
+</code></pre>
+                <style>
+                    div.z-index-demo {
+                        position: absolute;
+                        /* z-index only works on positioned elements */
+                        z-index: 1;
+                        /*  default value is auto */
+                        opacity: 0.8;
+                        /* for better visibility of overlapping elements */
+                        width: 200px;
+                        height: 150px;
+                        color: white;
+                        padding: 5px;
+                        margin: 40px;
+                        left: 0;
+                        top: 0;
+                    }
+
+                    div.z-index-demo.front {
+                        z-index: 2;
+                        left: 40px;
+                        top: 40px;
+                    }
+
+                    /* appears in front */
+
+                    div.back.z-index-demo {
+                        z-index: -1;
+                        left: -40px;
+                        top: -40px;
+                    }
+
+                    /* appears behind */
+                </style>
+                <div class="rendered" style="position:relative; width:300px; height:250px; z-index:4;">
+                    <div class="z-index-demo front" style="background-color:var(--mondrian-red);">Red (z-index: 2)
+                    </div>
+                    <div class="z-index-demo" style="background-color:var(--mondrian-blue);">Blue (z-index: 1)</div>
+                    <div class="z-index-demo back" style="background-color:var(--mondrian-yellow);">Yellow (z-index: 0)
+                    </div>
+                </div>
+
+                <p> This is very useful when you want to put an image as a partial background of a div and put some text
+                    on
+                    top of it. You can set the image div to have a lower z-index than the text div, so the text will be
+                    visible on top of the image.</p>
+                <pre><code class="language-css">.image {
+    position: absolute;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Leuphana_Building.jpg/960px-Leuphana_Building.jpg');
+    background-size: cover;
+    background-position: center;
+}       
+.text {
+    position: relative;
+    z-index: 1;
+    color: black;
+    padding: 20px;
+}</code></pre>
+                <div class="rendered" style="position:relative; width: 500px;    
+    height:150px; color:black; padding:50px;">
+                    <div class="image"
+                        style="top:20px; left:20px;opacity:50%;position:absolute; z-index:0; width:200px; height:150px;background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Leuphana_Building.jpg/960px-Leuphana_Building.jpg'); background-size:cover; background-position:center;">
+                    </div>
+                    <div class="text" style="position:relative; z-index:1;">Lorem ipsum dolor sit amet consectetur,
+                        adipisicing elit. Obcaecati recusandae debitis quisquam atque aliquam tenetur accusamus
+                        quibusdam
+                        aliquid aspernatur illum, soluta, dolorem dolorum excepturi deleniti minima ducimus perferendis
+                        delectus vel unde illo et aperiam suscipit quas adipisci. Ab quaerat accusamus explicabo
+                        architecto
+                        ducimus amet tenetur maxime odit rerum, velit veniam?</div>
+                </div>
+                <p>
+                    Z-index also takes negative values, which can be useful when you want to place an element behind the
+                    normal flow of the document (everything else). For example, you can use a negative z-index to create
+                    a
+                    background image that sits behind all other content on the page.
+                    However, be cautious when using negative z-index values, as they can make elements difficult to
+                    interact
+                    with.
+                </p>
+                <p>
+                    If you want to create complicated layered effects or ensure that certain elements always appear
+                    above
+                    or below others without needing to manage z-index values across the entire document, you can use the
+                    <code>isolation</code> property.
+                    We can set this property to isolate, which creates a new stacking context for the element and its
+                    children.
+                </p>
+                <pre><code class="language-css">/* Isolation: creates a new stacking context */
+.isolated {
+    isolation: isolate; # if we remove this line, the red div will disappear because it is behind the normal flow of the document
+    position: relative; 
+    background-color:#f0ede6;
+}
+#blue-div {
+    position:absolute; 
+    background-color:var(--mondrian-blue); 
+}
+#red-div {
+    position:absolute; 
+    background-color:var(--mondrian-red); 
+    z-index:-1;
+}   </code></pre>
+                <style>
+                    .isolated {
+                        isolation: isolate;
+                        position: relative;
+                        width: 500px;
+                        height: 150px;
+                        background-color: #f0ede6;
+                    }
+
+                    #blue-div {
+                        position: absolute;
+                        top: 40px;
+                        left: 20px;
+                        width: 250px;
+                        height: 70px;
+                        background-color: var(--mondrian-blue);
+                        padding: 5px;
+                    }
+
+                    #red-div {
+                        position: absolute;
+                        top: 60px;
+                        left: 200px;
+                        width: 250px;
+                        height: 70px;
+                        background-color: var(--mondrian-red);
+                        z-index: -1;
+                        text-align: center;
+                    }
+                </style>
+                <div class="rendered" style="position:relative; width: 500px; height:150px; color:black; padding:50px;">
+                    <div class="isolated">
+                        .isolated: this div is isolated and creates a new stacking context.
+                        <div id="blue-div">
+                            #blue-div: this div has the default z-index value: auto
+                        </div>
+                        <div id="red-div">
+                            #red-div: z-index: -1
+                        </div>
+                    </div>
+                </div>
+                <p>
+                    There are many more tricky situations where you might wonder why your z-indexes are not working. In
+                    those cases, you can check out <a target="_blank"
+                        href="https://www.freecodecamp.org/news/4-reasons-your-z-index-isnt-working-and-how-to-fix-it-coder-coder-6bc05f103e6c/">this
+                        article</a> to see if you can find the reason.
+                </p>
+
+            </section>
+
+            <section id="float">
+                <h2>Float</h2>
+
+                <p>The <code>float</code> property is used to wrap text around images or to create multi-column layouts.
+                    It
+                    can be a bit tricky to work with, especially when it comes to clearing floats and understanding how
+                    it
+                    interacts with the document flow.</p>
+                <pre><code class="language-css">/* Float: allows elements to float to the left or right */
+img {
+    float: left; /* or right */
+    margin: 0 1rem 1rem 0; /* add some spacing */
+}
+</code></pre>
+                <div class="rendered">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Leuphana_Building.jpg/960px-Leuphana_Building.jpg
+" alt="Leuphana Building" style="width:200px; float:left; margin:0 1rem 1rem 0;">
+                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Obcaecati recusandae debitis quisquam
+                        atque
+                        aliquam tenetur accusamus quibusdam aliquid aspernatur illum, soluta,
+                        dolorem dolorum excepturi deleniti minima ducimus perferendis delectus vel unde illo et aperiam
+                        suscipit quas adipisci. Ab quaerat accusamus explicabo architecto ducimus amet tenetur maxime
+                        odit
+                        rerum, velit veniam?</p>
+                </div>
+
+                <p>We can also use floats to let elements sit side by side.</p>
+                <pre><code class="language-css">/* Float for side-by-side layout */
+.floating_element {
+    float: left;
+    width: 30%;
+}
+</code></pre>
+                <style>
+                    .floating_element {
+                        float: left;
+                        width: 30%;
+                        padding: 1%;
+                    }
+                </style>
+                <div class="rendered clearfix">
+                    <div class="floating_element" style="background-color:var(--mondrian-red);">.floating_element 1
+                    </div>
+                    <div class="floating_element" style="background-color:var(--mondrian-yellow);">.floating_element 2
+                    </div>
+                    <div class="floating_element" style="background-color:var(--mondrian-blue);">.floating_element 3
+                    </div>
+                </div>
+
+                <p><b>Note</b>: When using floats, the parent container may collapse in height if it only contains
+                    floated elements.
+                    To prevent this, you can set the parent container's overflow to auto or hidden.</p>
+                <pre><code class="language-css">
+/* overflow on the parent */
+.parent {
+    overflow: auto; /* or hidden */
+}</code></pre>
+                <div class="rendered">
+                    <div class="parent" style="border: 1px solid #ccc; padding: 1rem; overflow: auto;">
+                        <div
+                            style="float: left; width: 40%; background: #eee; padding: 1rem;background-color:var(--mondrian-red);">
+                            Floated Left</div>
+                        <div
+                            style="float: left; width: 40%; background: #ddd; padding: 1rem;background-color:var(--mondrian-yellow);">
+                            Floated Left</div>
+                    </div>
+                </div>
+
+                <h3>Simple Float Layout</h3>
+                <p>Once we have float, we can use it to create more complex layouts. For example, we can create a
+                    two-column
+                    layout with a sidebar and main content area by letting them float side by side.
+                    This is how websites were built before the introduction of more modern layout techniques like
+                    Flexbox
+                    and Grid. For more complex layouts, one usually uses a multi-column boilerplate that is based on
+                    floats.
+                    <br> <a href="float_layout.html" target="_blank"> → Check out the Float Layout</a>
+                </p>
+                <iframe src="float_layout.html" title="Float Layout Demo"
+                    style="width:100%; height:550px; border:none;"></iframe>
+
+            </section>
+
+            <section id="flexbox">
+                <h2>Flexbox</h2>
+                <p>CSS Flexbox is a one-dimensional layout system that allows you to arrange items either in rows or in
+                    columns. It is particularly useful for creating flexible and responsive layouts, as it can easily
+                    adjust
+                    the size and position of items based on the available space.
+                    <a href="flexbox_layout.html" target="_blank"> → Check out the Flexbox Layout</a>
+                </p>
+                <p>A flexbox always consists of:
+                <ul>
+                    <li>A Flex Container - The parent (container) element, where the display property is set to flex or
+                        inline-flex</li>
+                    <li>One or more Flex Items - The direct children of the flex container automatically become flex
+                        items
+                    </li>
+                </ul>
+                </p>
+                <p>Here is a simple example:
+                </p>
+                <pre><code class="language-css">/* Simple flexbox layout */
+.flex-container {
+    display: flex; /* turns the container into a flex container */
+    justify-content: space-between; /* distributes items along the main axis */
+    gap: 1rem; /* spacing between items */
+}
+.flex-item {
+    padding: 1rem;
+    text-align: center;
+}</code></pre>
+                <style>
+                    .flex-container {
+                        display: flex;
+                        justify-content: space-between;
+                        gap: 1rem;
+                    }
+
+                    .flex-item {
+                        padding: 1rem;
+                        text-align: center;
+                        font-weight: 600;
+                        border: 1px solid #999;
+                    }
+
+                    .flex-item:nth-child(1) {
+                        background: var(--mondrian-red);
+                        color: white;
+                    }
+
+                    .flex-item:nth-child(2) {
+                        background: var(--mondrian-yellow);
+                        color: #333;
+                    }
+
+                    .flex-item:nth-child(3) {
+                        background: var(--mondrian-blue);
+                        color: white;
+                    }
+                </style>
+                <div class="rendered">
+                    <div class="flex-container">
+                        <div class="flex-item">Item 1</div>
+                        <div class="flex-item">Item 2</div>
+                        <div class="flex-item">Item 3</div>
+                    </div>
+                </div>
+            </section>
+
+
+            <section id="grid">
+
+                <h3>Grid</h3>
+                <p>CSS Grid is a 2D layout system that allows you to create complex, responsive grid-based
+                    layouts with ease. It enables you to control both rows and columns simultaneously.
+                    It is a very powerful layout system that takes a bit of time to learn. Due to the limited sessions
+                    of
+                    this class, we won't be able to learn it in detail here. However, I highly recommend you to check
+                    it
+                    out after you are familiar with the Flexbox system and other CSS concepts.
+                </p>
+
+                <p>Here is a simple grid example just to show what it's capable of doing.
+                </p>
+                <pre><code class="language-css">/* Simple grid layout: control columns AND rows */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* three columns of equal width */
+    grid-template-rows: repeat(3, 100px); /* three rows of fixed height */
+    gap: 1rem; /* spacing between cells */
+}
+.grid-item {
+    padding: 1rem;
+    text-align: center;
+}
+/* items can span multiple columns or rows */
+.item-1, .item-5 {
+    grid-column: span 2; /* take up two columns */
+}
+.item-2 {
+    grid-row: span 2; /* take up two rows */
+}</code></pre>
+                <style>
+                    .grid-container {
+                        display: grid;
+                        grid-template-columns: repeat(3, 1fr);
+                        grid-template-rows: repeat(3, 100px);
+                        gap: 1rem;
+                    }
+
+                    .grid-item {
+                        padding: 1rem;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-weight: 600;
+                        border: 1px solid #999;
+                    }
+
+                    .item-1 {
+                        grid-column: span 2;
+                        background: var(--mondrian-red);
+                        color: white;
+                    }
+
+                    .item-2 {
+                        grid-row: span 2;
+                        background: var(--mondrian-yellow);
+                        color: #333;
+                    }
+
+                    .item-3 {
+                        background: #f0ede6;
+                    }
+
+                    .item-4 {
+                        background: var(--mondrian-blue);
+                        color: white;
+                    }
+
+                    .item-5 {
+                        grid-column: span 2;
+                        background: var(--mondrian-yellow);
+                        color: #333;
+                    }
+
+                    .item-6 {
+                        background: var(--mondrian-blue);
+                        color: white;
+                    }
+                </style>
+                <div class="rendered">
+                    <div class="grid-container">
+                        <div class="grid-item item-1">1: span 2 columns</div>
+                        <div class="grid-item item-2">2: span 2 rows</div>
+                        <div class="grid-item item-3">3</div>
+                        <div class="grid-item item-4">4</div>
+                        <div class="grid-item item-5">5: span 2 columns</div>
+                        <div class="grid-item item-6">6</div>
+                    </div>
+                </div>
+                <p>Unlike Flexbox, which works along one axis (a row or a column), Grid lets you control rows and
+                    columns at the same time, which makes it a great choice for building entire page layouts.
+                </p>
+
+
+            </section>
+
+            <section id="center">
+                <h3>How to Center a Div</h3>
+                <p>Centering a div can be achieved using different CSS
+                    layout techniques depending on the context.</p>
+                <p>1. Margin Auto:</p>
+                <pre><code class="language-css">/* Centering with margin auto */
+.centered {
+    width: 200px; /* set a fixed width */
+    margin: 0 auto; /* auto left and right margins */
+    /* Vertical centering without using grid or flexbox is more complex and often requires additional techniques, such as using display: table or absolute positioning. */
+}</code></pre>
+                <style>
+                    .centered {
+                        width: 200px;
+                        margin: 0 auto;
+                    }
+                </style>
+                <div class="rendered container">
+                    <div class="centered"
+                        style="background-color:var(--mondrian-blue); color:white; padding:1rem; text-align:center;">
+                        Centered with Margin Auto
+                    </div>
+                </div>
+                <p>2. Flexbox:</p>
+                <pre><code class="language-css">/* Centering with Flexbox */
+.container_flex {
+    display: flex;
+    justify-content: center; /* horizontal centering */
+    align-items: center; /* vertical centering */
+}</code></pre>
+                <style>
+                    .container_flex {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        height: 150px;
+                    }
+                </style>
+                <div class="rendered container_flex">
+                    <div class="centered"
+                        style="background-color:var(--mondrian-red); color:white; padding:1rem; text-align:center;">
+                        Centered with Flexbox
+                    </div>
+                </div>
+                <p>3. Grid:</p>
+                <pre><code class="language-css">/* Centering with Grid */
+.container_grid {
+    display: grid;
+    place-items: center; /* centers both horizontally and vertically */
+}</code></pre>
+                <style>
+                    .container_grid {
+                        display: grid;
+                        place-items: center;
+                        height: 150px;
+                    }
+                </style>
+                <div class="rendered container_grid">
+                    <div class="centered"
+                        style="background-color:var(--mondrian-yellow); color:black; padding:1rem; text-align:center;">
+                        Centered with Grid
+                    </div>
+                </div>
+            </section>
+
+            <section id="images">
+                <h2>Display Images</h2>
+                <p>One common issue one needs to solve is when multiple images don't share the same format but we still
+                    want them to look nice together.
+                    There are a few CSS rules that can help you with that.
+                </p>
+
+                <h3>object-fit</h3>
+                <p>The <code>object-fit</code> property controls how an image (or video) is resized to fit into its box.
+                    It only works when the element has both a <code>width</code> and a <code>height</code> set.
+                    By default, the image is stretched to fill the box (<code>fill</code>), which ignores the image's
+                    aspect ratio and can look distorted.
+                    With the right value, we can make images with different formats look nice together.</p>
+                <ul>
+                    <li><code>fill</code> (default): stretches the image to fill the box, ignoring its aspect ratio (the
+                        image may look distorted).</li>
+                    <li><code>contain</code>: scales the image so it fits entirely inside the box, leaving empty space
+                        around it if the aspect ratios don't match.</li>
+                    <li><code>cover</code>: scales the image so it fills the box completely, cropping the overflow. The
+                        most useful value to make images look uniform.</li>
+                    <li><code>none</code>: no scaling, the image keeps its natural size and may overflow the box.</li>
+                    <li><code>scale-down</code>: behaves like <code>none</code> or <code>contain</code>, whichever
+                        results
+                        in a smaller image.</li>
+                </ul>
+                <pre><code class="language-css">/* Object-fit: how the image fits into its box */
+img {
+    width: 160px;
+    height: 120px;
+    object-fit: cover; /* fill | contain | cover | none | scale-down */
+}</code></pre>
+                <style>
+                    .fit-demo {
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 1rem;
+                    }
+
+                    .fit-demo figure {
+                        margin: 0;
+                        width: 160px;
+                        text-align: center;
+                        font-size: 0.85rem;
+                        overflow: hidden;
+                        /* clip the image when it overflows its box (e.g. object-fit: none) */
+                    }
+
+                    .fit-demo img {
+                        width: 160px;
+                        height: 120px;
+                        display: block;
+                        border: 1px solid #ccc;
+                    }
+                </style>
+                <div class="rendered fit-demo">
+                    <figure>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Leuphana_Building.jpg/960px-Leuphana_Building.jpg"
+                            style="object-fit: fill;" alt="Leuphana Building with object-fit: fill">
+                        <figcaption>fill (default)</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Leuphana_Building.jpg/960px-Leuphana_Building.jpg"
+                            style="object-fit: contain;" alt="Leuphana Building with object-fit: contain">
+                        <figcaption>contain</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Leuphana_Building.jpg/960px-Leuphana_Building.jpg"
+                            style="object-fit: cover;" alt="Leuphana Building with object-fit: cover">
+                        <figcaption>cover</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Leuphana_Building.jpg/960px-Leuphana_Building.jpg"
+                            style="object-fit: none;" alt="Leuphana Building with object-fit: none">
+                        <figcaption>none</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Leuphana_Building.jpg/960px-Leuphana_Building.jpg"
+                            style="object-fit: scale-down;" alt="Leuphana Building with object-fit: scale-down">
+                        <figcaption>scale-down</figcaption>
+                    </figure>
+                </div>
+                <p><b>Note</b>: <code>object-fit</code> only works on replaced elements such as
+                    <code>&lt;img&gt;</code> and <code>&lt;video&gt;</code>. For background images, use
+                    <code>background-size</code> instead (see below).
+                </p>
+
+                <h3>object-position</h3>
+                <p>The <code>object-position</code> property controls which part of the image is visible inside the box.
+                    It is most useful together with <code>object-fit: cover;</code>, when part of the image gets
+                    cropped.
+                    The default value is <code>center</code>.</p>
+                <pre><code class="language-css">/* Object-position: which part of the image is visible */
+img {
+    width: 160px;
+    height: 120px;
+    object-fit: cover;
+    object-position: left; /* keywords: left/center/right + top/center/bottom, or percentages: x% y% */
+}</code></pre>
+                <div class="rendered fit-demo">
+                    <figure>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Leuphana_Building.jpg/960px-Leuphana_Building.jpg"
+                            style="object-fit: cover; object-position: left;"
+                            alt="Leuphana Building with object-position: left">
+                        <figcaption>left</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Leuphana_Building.jpg/960px-Leuphana_Building.jpg"
+                            style="object-fit: cover; object-position: center;"
+                            alt="Leuphana Building with object-position: center">
+                        <figcaption>center (default)</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Leuphana_Building.jpg/960px-Leuphana_Building.jpg"
+                            style="object-fit: cover; object-position: right;"
+                            alt="Leuphana Building with object-position: right">
+                        <figcaption>right</figcaption>
+                    </figure>
+                </div>
+                <p>In the demo above, the image overflows horizontally, so the horizontal keywords (<code>left</code>,
+                    <code>center</code>, <code>right</code>) change the result.
+                    If your image overflows vertically (e.g. a portrait image in a landscape box), the vertical
+                    keywords (<code>top</code>, <code>center</code>, <code>bottom</code>) come into play.
+                    You can combine both axes, e.g. <code>object-position: left top;</code>, or use percentages like
+                    <code>20% 80%</code>.
+                </p>
+
+                <h3>Background Images</h3>
+                <p>The <code>background-image</code> property allows you to set an image as the background of an
+                    element.
+                    You can use
+                    the <code>url()</code> function to specify the path to the image. You can set the background image
+                    to
+                    cover the entire element, position it, and control whether it repeats or not using properties like
+                    <code>background-size</code>, <code>background-position</code>, and <code>background-repeat</code>.
+                    Detailed information about background properties can be found <a
+                        href="https://developer.mozilla.org/en-US/docs/Web/CSS/background" target="_blank">here</a>.
+                </p>
+
+                <pre><code class="language-css">/* Set a background image */
+div {
+    background-color:rgba(255,255,255,0.8); /* Optional: add a semi-transparent overlay */
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Leuphana_Building.jpg/960px-Leuphana_Building.jpg');
+    background-size: cover; /* Make the image cover the entire element */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Prevent tiling */
+}
+</code></pre>
+                <div class="rendered"
+                    style="background-color:rgba(255,255,255,0.8); width:300px; height:150px; background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Leuphana_Building.jpg/960px-Leuphana_Building.jpg'); background-size:cover; background-position:center; background-repeat:no-repeat;">
+                    Background Image DEMO
+                </div>
+                <pre><code class="language-css">/* Set tiled background image */
+div {
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Leuphana_Building.jpg/960px-Leuphana_Building.jpg');
+    background-repeat: repeat; /* Tile the image */
+    background-size:200px; 
+}
+</code></pre>
+                <div class="rendered"
+                    style="background-color:rgba(255,255,255,0.8); width:90%; height:200px; background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Leuphana_Building.jpg/960px-Leuphana_Building.jpg'); background-size:150px; background-repeat:repeat;">
+                </div>
+                <h3>Gradient Backgrounds</h3>
+                <p>CSS gradients allow you to create smooth transitions between two or more colors.</p>
+                <pre><code class="language-css">/* Gradient Backgrounds */
+div.linear-gradient {
+    background: linear-gradient(to right, #e74c3c, #3498db); /* Linear gradient from red to blue */
+}
+div.radial-gradient {
+    background: radial-gradient(circle, #2ecc71, #27ae60); /* Radial gradient from light green to dark green */
+}</code></pre>
+                <style>
+                    div.linear-gradient {
+                        background: linear-gradient(to right, #e74c3c, #3498db);
+                        width: 300px;
+                        height: 150px;
+                        color: white;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+
+                    div.radial-gradient {
+                        background: radial-gradient(circle, orange, #27ae60);
+                        width: 300px;
+                        height: 150px;
+                        color: white;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                </style>
+                <div class="rendered linear-gradient">
+                    Linear Gradient Background
+                </div>
+                <div class="rendered radial-gradient">
+                    Radial Gradient Background
+                </div>
+
+                <p>The <code>background</code> property is a powerful shorthand that can set multiple background-related
+                    properties at once.</p>
+                <pre><code class="language-css">/* Shorthand for multiple background properties */
+background: url('image.jpg') no-repeat center/cover;
+background: linear-gradient(to right, #e74c3c, #3498db);
+background: radial-gradient(circle, #2ecc71, #27ae60);</code></pre>
+
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>

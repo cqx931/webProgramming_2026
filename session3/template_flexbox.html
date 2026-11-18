@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Flexbox layout scenarios — a template showing different use cases">
+    <title>Flexbox — Layout Scenarios</title>
+    <link href="../css/main.css" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .wrapper {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* ============================================================
+                   SCENARIO 1 — MENU / NAVIGATION BAR
+
+                   flex-direction: row (default)
+                   justify-content: space-between
+                   align-items: center
+                   nested flex container for the link list
+        ============================================================ */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: #000;
+        }
+
+        /* ============================================================
+                   SCENARIO 2 — CENTERED HERO / SPLASH
+
+                   place-items: center  (centers on both axes)
+                   flex-direction: column  (stack heading, text, button)
+         ============================================================ */
+        .hero {
+            display: flex;
+            place-items: center;
+            min-height: 40vh;
+            text-align: center;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            width: 100%;
+        }
+
+        .hero-content h1 {
+            font-size: 2.8rem;
+            line-height: 1.2;
+        }
+
+        .hero-content p {
+            max-width: 560px;
+            color: #666;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #888;
+            color: #fff;
+            padding: 0.75rem 2rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        /* ============================================================
+                   SCENARIO 3 — TEXT + IMAGE (side-by-side)
+
+                   flex: 1  on each column → equal width
+                   The grey box stands in for an image.
+         ============================================================ */
+        .text-image-row {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .text-image-row .col:first-child {
+            flex: 1;
+        }
+
+        .text-image-row .col:last-child {
+            flex: 2;
+        }
+
+        .img-placeholder {
+            width: 100%;
+            aspect-ratio: 4 / 3; /* maintains a 4:3 ratio */
+            background: #d9d9d9;
+        }
+
+        .text-image-row h3 {
+            margin-bottom: 0.75rem;
+        }
+
+        .text-image-row p {
+            color: #555;
+        }
+
+        /* ============================================================
+                   SCENARIO 4 — FLEX CARDS (responsive grid)
+                   flex-wrap: wrap  +  flex: 1 1 200px
+                   -> cards take 200px minimum, grow to fill, wrap as needed
+        ============================================================ */
+        .card-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .card {
+            flex: 1 1 200px;
+            background: #eee;
+            padding: 1.5rem;
+            border-radius: 6px;
+        }
+
+        .card h4 {
+            margin-bottom: 0.5rem;
+        }
+
+        .card p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* ============================================================
+                   SCENARIO 5 — GALLERY (image grid)
+
+                   flex-wrap: wrap  +  fixed percentage widths
+                   flex: 0 0 calc(33.333% - 1rem)  → three columns
+                   The calc subtracts the gap so three items fit per row.
+         ============================================================ */
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            flex: 0 0 calc(33.333% - 1rem);
+            background: #f0f0f0;
+            overflow: hidden;
+        }
+
+        .gallery-thumb {
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            background: #c4c4c4;
+        }
+
+        .gallery-label {
+            padding: 0.75rem;
+            font-size: 0.85rem;
+            text-align: center;
+            color: #555;
+        }
+
+        /* ============================================================
+                   SCENARIO 6 — CENTERED BUTTON ROW / TOOLBAR
+
+                   justify-content: center
+                   flex-wrap: wrap  (buttons fall to new row on small screens)
+        ============================================================ */
+        .toolbar {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            list-style: none;
+        }
+
+        .toolbar a {
+            display: block;
+            padding: 0.75rem 2rem;
+            background: #e8e8e8;
+            border-radius: 4px;
+            color: #444;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* ============================================================
+                   SCENARIO 7 — FOOTER 
+        ============================================================ */
+        .footer-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            padding: 1.5rem 0;
+            border-top: 1px solid #ddd;
+            margin-top: 2rem;
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        /* ============================================================
+                   SECTION STYLES  (just for spacing)
+        ============================================================ */
+
+        section {
+            padding: 3rem 0;
+        }
+
+        section h2 {
+            font-size: 1.6rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .scenario-label {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #999;
+            margin-bottom: 0.25rem;
+        }
+
+        .section-sub {
+            color: #888;
+            margin-bottom: 1.5rem;
+        }
+
+        /* ============================================================
+                   RESPONSIVE OVERRIDES
+                   On narrow screens, collapse multi-column layouts
+                   and shrink font sizes.
+       ============================================================ */
+
+        @media (max-width: 640px) {
+            .text-image-row {
+                flex-direction: column;
+            }
+
+            .gallery-item {
+                /* full width on mobile */
+                flex: 0 0 100%; 
+                
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .navbar {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ================================================================
+           SCENARIO 1: MENU / NAVIGATION BAR
+           A horizontal menu with the brand on the left and links on the
+           right. A classic flexbox row with space-between.
+
+           Properties used:
+           - display: flex
+           - justify-content: space-between
+           - align-items: center
+           - gap
+   ================================================================ -->
+    <header class="wrapper">
+        <span class="scenario-label">Scenario 1 — Menu Bar</span>
+        <nav class="navbar">
+            <strong class="brand">Site Name</strong>
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Gallery</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="wrapper">
+
+        <!-- ============================================================
+               SCENARIO 2: CENTERED HERO
+               A full-width splash section where everything is centered
+               both horizontally and vertically. Common for landing pages.
+
+               Properties used:
+               - display: flex
+               - place-items: center
+               - flex-direction: column  (on the inner wrapper)
+       ============================================================ -->
+        <section>
+            <span class="scenario-label">Scenario 2 — Centered Hero</span>
+            <div class="hero">
+                <div class="hero-content">
+                    <h1>Center Me, Please</h1>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+                    <a href="#" class="btn">A Button</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+               SCENARIO 3: TEXT + IMAGE (side-by-side)
+               The text column takes 2/3 of the width and the image
+               placeholder takes 1/3. Switch to single column on mobile.
+
+               Properties used:
+               - display: flex
+               - flex: 1 and flex: 2
+               - gap
+        ============================================================ -->
+        <section>
+            <span class="scenario-label">Scenario 3 — Text + Image</span>
+            <h2>Side-by-Side Layout</h2>
+            <p class="section-sub">Text takes 2/3, image takes 1/3</p>
+
+            <div class="text-image-row">
+                <div class="col">
+                    <div class="img-placeholder"></div>
+                </div>
+                <div class="col">
+                    <h3>This is the text side</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper.</p>
+                    <br>
+                    <p>Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+               SCENARIO 4: FLEX CARDS (responsive grid)
+               Cards that automatically wrap to the next row when the
+               screen shrinks. No media queries needed — flexbox handles
+               it with flex-wrap + flex-basis.
+
+               Properties used:
+               - display: flex
+               - flex-wrap: wrap
+               - flex: 1 1 200px
+        ============================================================ -->
+        <section>
+            <span class="scenario-label">Scenario 4 — Flex Cards</span>
+            <h2>Card Grid</h2>
+            <p class="section-sub">Resize the window — cards wrap automatically. <code>flex: 1 1 200px;</code></p>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h4>Card One</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque habitant morbi tristique senectus et netus.</p>
+                </div>
+                <div class="card">
+                    <h4>Card Two</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque habitant morbi tristique senectus et netus.</p>
+                </div>
+                <div class="card">
+                    <h4>Card Three</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque habitant morbi tristique senectus et netus.</p>
+                </div>
+                <div class="card">
+                    <h4>Card Four</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque habitant morbi tristique senectus et netus.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+               SCENARIO 5: GALLERY (image grid)
+               A fixed three-column grid using percentage widths. Unlike
+               the card grid above, each item has a precise width (33%).
+               Great for photo galleries or product grids.
+
+               Properties used:
+               - display: flex
+               - flex-wrap: wrap
+               - flex: 0 0 calc(33.333% - 1rem)
+        ============================================================ -->
+        <section>
+            <span class="scenario-label">Scenario 5 — Gallery Grid</span>
+            <h2>Gallery / Thumbnail Grid</h2>
+            <p class="section-sub">Three columns, fixed widths</p>
+
+            <div class="gallery">
+                <div class="gallery-item">
+                    <div class="gallery-thumb"></div>
+                    <div class="gallery-label">Item 1</div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-thumb"></div>
+                    <div class="gallery-label">Item 2</div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-thumb"></div>
+                    <div class="gallery-label">Item 3</div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-thumb"></div>
+                    <div class="gallery-label">Item 4</div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-thumb"></div>
+                    <div class="gallery-label">Item 5</div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-thumb"></div>
+                    <div class="gallery-label">Item 6</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+               SCENARIO 6: CENTERED BUTTON ROW
+               A row of buttons / links, centered. Useful for pagination,
+               tag filters, social links, etc.
+
+               Properties used:
+               - display: flex
+               - justify-content: center
+               - flex-wrap: wrap
+        ============================================================ -->
+        <section>
+            <span class="scenario-label">Scenario 6 — Centered Button Row</span>
+            <h2>Toolbar / Button Group</h2>
+            <p class="section-sub">Centered with justify-content: center</p>
+
+            <ul class="toolbar">
+                <li><a href="#">Filter A</a></li>
+                <li><a href="#">Filter B</a></li>
+                <li><a href="#">Filter C</a></li>
+                <li><a href="#">Filter D</a></li>
+            </ul>
+        </section>
+
+
+    </main>
+
+    <!-- ================================================================
+           SCENARIO 7: FOOTER
+           A footer with copyright
+    ================================================================ -->
+    <footer class="wrapper">
+        <span class="scenario-label">Scenario 7 — Footer</span>
+        <div class="footer-content">
+            <span>&copy; 2026 Your Name</span>
+        </div>
+    </footer>
+
+</body>
+</html>
