@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Float-based 2-column layout demo for week 3">
+    <title>Float Layout Demo</title>
+    <style>
+        body {
+            font-family: 'Avenir', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0 1rem; 
+            /* root em, default 16px*/
+            background: white;
+            color: #333;
+        }
+        h1 {
+            font-family:  Optima, Candara, 'Noto Sans', sans-serif;
+        }
+        .page-header {
+            max-width: 900px;
+            margin: 1.5rem auto 0;
+            padding: 0;
+        }
+        .panel {
+            height:100%;
+            max-width: 900px;
+            margin: 1rem auto;
+            padding: 1rem;
+            background: #efefef;
+            overflow: hidden; /* Clear floats */
+        }
+        .left-column {
+            float: left;
+            width: 65%;
+            padding: 1rem;
+            box-sizing: border-box;
+            background: #dfdfdf;
+        }
+        .right-column {
+            float: left;
+            width: 32%;
+            margin-left: 3%;
+            padding: 1rem;
+            box-sizing: border-box;
+            
+            border-radius: 4px;
+            height:100%;
+            background: #cfcfcf;
+        }
+
+    </style>
+</head>
+<body>
+    <header class="page-header">
+        <h1>Float Layout Demo</h1>
+        <p>Simple 2-column layout using <code>float</code>.</p>
+    </header>
+
+    <main class="panel">
+
+            <div class="left-column">
+                <h2>Main content</h2>
+                <p>This column is the main content area. It floats to the left and takes about two-thirds of the wrapper width. Notice I used percentage for width instead of fixed pixels.
+                     The content flows naturally and stays next to the sidebar until the container ends.</p>
+               
+                    <h3>Why float?</h3>
+                    <p>Using <code>float</code> was a common layout technique before Flexbox and Grid. It is still useful for simple layouts or legacy support, but remember to clear floats so the parent container expands correctly.</p>
+                
+            </div>
+            <aside class="right-column">
+                <h2>Sidebar</h2>
+                <p>This sidebar floats to the left as well, so it sits beside the main column. It uses a fixed width percentage and a small left margin for spacing.</p>
+            </aside>
+    </main>
+</body>
+</html>
